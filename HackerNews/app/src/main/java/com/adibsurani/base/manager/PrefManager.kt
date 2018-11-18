@@ -1,6 +1,7 @@
 package com.adibsurani.base.manager
 
 import android.content.SharedPreferences
+import com.adibsurani.hackernews.model.Story
 import com.google.gson.Gson
 
 class PrefManager constructor(var sharedPreferences: SharedPreferences,
@@ -29,6 +30,17 @@ class PrefManager constructor(var sharedPreferences: SharedPreferences,
         editor.commit()
     }
 
+    @Synchronized
+    fun setStory(offlineTourData: Story) {
+        putDatatoSharedPref(gson.toJsonTree(offlineTourData, Story::class.java)
+                .toString(), String::class.java, "STORY")
+    }
+
+    @Synchronized
+    fun getStory(): Story {
+        return gson.fromJson((getDataFromSharedPref(String::class.java, "STORY"))
+                as String?, Story::class.java)
+    }
 
 
 }

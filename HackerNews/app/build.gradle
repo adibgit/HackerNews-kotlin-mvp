@@ -87,7 +87,7 @@ dependencies {
     implementation 'com.nshmura:snappysmoothscroller:1.0.0'
     implementation 'com.intuit.sdp:sdp-android:1.0.5'
     implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
-    implementation 'com.github.burakeregar:EasiestGenericRecyclerAdapter:v1.5'
+    implementation 'com.nshmura:snappysmoothscroller:1.0.0'
 
 }
 

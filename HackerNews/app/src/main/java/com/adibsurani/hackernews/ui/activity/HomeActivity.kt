@@ -1,20 +1,23 @@
 package com.adibsurani.hackernews.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.View.GONE
 import com.adibsurani.base.mvp.BaseActivity
 import com.adibsurani.hackernews.R
 import com.adibsurani.hackernews.di.component.DaggerHomeActivityComponent
 import com.adibsurani.hackernews.di.module.HomeActivityModule
+import com.adibsurani.hackernews.helper.RVHelper
 import com.adibsurani.hackernews.model.Story
 import com.adibsurani.hackernews.presenter.HomePresenter
 import com.adibsurani.hackernews.ui.adapter.HomeAdapter
 import com.adibsurani.hackernews.view.HomeView
-import com.burakeregar.easiestgenericrecycleradapter.base.GenericAdapterBuilder
-import com.burakeregar.easiestgenericrecycleradapter.base.GenericRecyclerAdapter
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_home.*
+import org.greenrobot.eventbus.Subscribe
 import org.jetbrains.anko.info
+import org.jetbrains.anko.startActivity
 import javax.inject.Inject
 
 class HomeActivity :
@@ -23,13 +26,14 @@ class HomeActivity :
 
     @Inject
     lateinit var homePresenter : HomePresenter
-    private lateinit var homeAdapter : GenericRecyclerAdapter
+    private lateinit var homeAdapter : HomeAdapter
     private var storyList = ArrayList<Story>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         initView()
+        initClick()
         initAdapter()
     }
 
@@ -45,22 +49,26 @@ class HomeActivity :
     }
 
     override fun getStoriesID(storiesID: ArrayList<Int>) {
-        info { storiesID }
+        Log.d("TOP STORY ID ::", "$storiesID")
         getTopStory(storiesID)
     }
 
     override fun getStory(story: Story) {
         info { story }
         storyList.add(story)
-        homeAdapter.setList(storyList)
+        homeAdapter = HomeAdapter(this,storyList,{ partItem : Story -> dataClicked(partItem) })
+        recycler_story.adapter = homeAdapter
         doneLoadStory()
     }
 
     private fun initView() {
         homePresenter.getStoriesID()
         layout_shimmer_story.startShimmerAnimation()
+        image_refresh.bringToFront()
+    }
 
-        layout_swipe_refresh.setOnRefreshListener {
+    private fun initClick() {
+        image_refresh.setOnClickListener {
             storyList.clear()
             homePresenter.getStoriesID()
         }
@@ -71,22 +79,22 @@ class HomeActivity :
             val story = storyList[i]
             homePresenter.getStory(story)
         }
+
     }
 
     private fun initAdapter() {
-        homeAdapter = GenericAdapterBuilder().addModel(
-            R.layout.row_story,
-            HomeAdapter::class.java,
-            Story::class.java)
-            .execute()
-        recycler_story.layoutManager = LinearLayoutManager(this)
-        recycler_story.adapter = homeAdapter
+        RVHelper.setupVertical(recycler_story,this)
     }
 
     private fun doneLoadStory() {
         layout_shimmer_story.stopShimmerAnimation()
         layout_shimmer_story.visibility = GONE
-        layout_swipe_refresh.isRefreshing = false
+    }
+
+    private fun dataClicked(data : Story) {
+        val intent = Intent(this, DetailActivity::class.java)
+        intent.putExtra("story",Gson().toJson(data))
+        startActivity(intent)
     }
 
 }

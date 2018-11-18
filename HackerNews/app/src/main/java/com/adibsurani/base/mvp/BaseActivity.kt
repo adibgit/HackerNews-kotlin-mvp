@@ -5,11 +5,13 @@ import android.support.v7.app.AppCompatActivity
 import com.adibsurani.base.App
 import com.adibsurani.base.di.component.AppComponent
 import com.adibsurani.base.event.DefaultEvent
+import com.adibsurani.base.manager.PrefManager
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.jetbrains.anko.AnkoComponent
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
+import javax.inject.Inject
 
 abstract class BaseActivity :
     AppCompatActivity(),
@@ -17,6 +19,8 @@ abstract class BaseActivity :
     AnkoLogger {
 
     private var presenter: BasePresenter<*>? = null
+    @Inject
+    lateinit var prefManager: PrefManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

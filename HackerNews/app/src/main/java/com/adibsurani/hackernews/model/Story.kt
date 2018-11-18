@@ -9,11 +9,11 @@ data class Story (@SerializedName("by")
                   @SerializedName("id")
                   var id : String,
                   @SerializedName("kids")
-                  var kids : ArrayList<String>,
+                  var kids : ArrayList<Int>,
                   @SerializedName("score")
                   var score: Int,
                   @SerializedName("time")
-                  var time : Int,
+                  var time : Long,
                   @SerializedName("title")
                   var title : String,
                   @SerializedName("type")

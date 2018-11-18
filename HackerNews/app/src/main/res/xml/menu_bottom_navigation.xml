@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        icon="@drawable/ic_comment"
+        id="@+id/bb_menu_news"
+        title="Article"
+        />
+    <tab
+        icon="@drawable/ic_news"
+        id="@+id/bb_menu_comment"
+        title="Comment"
+        />
+</tabs>
