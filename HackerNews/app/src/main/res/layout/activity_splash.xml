@@ -2,73 +2,14 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:gravity="center">
 
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_alignParentBottom="true">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <RelativeLayout
-                android:id="@+id/layOverview"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-                <ImageView
-                    android:id="@+id/imgOverview"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_20sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginBottom="@dimen/_3sdp"
-                    android:src="@drawable/ic_news"
-                    android:layout_alignParentTop="true"
-                    />
-                <TextView
-                    android:id="@+id/tvOverview"
-                    android:layout_below="@id/imgOverview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_3sdp"
-                    android:text="Overview"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="@dimen/_8sdp"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:id="@+id/layExplore"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-                <ImageView
-                    android:id="@+id/imgExplore"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_12sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginBottom="@dimen/_3sdp"
-                    android:src="@drawable/ic_chat"
-                    android:layout_alignParentTop="true"
-                    />
-                <TextView
-                    android:id="@+id/tvExplore"
-                    android:layout_below="@id/imgExplore"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_3sdp"
-                    android:text="Explore"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="@dimen/_8sdp"/>
-            </RelativeLayout>
-        </LinearLayout>
-
-    </RelativeLayout>
-
+    <ImageView
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:src="@drawable/ic_news"
+        android:tint="@color/colorAccent"/>
 
 </RelativeLayout>

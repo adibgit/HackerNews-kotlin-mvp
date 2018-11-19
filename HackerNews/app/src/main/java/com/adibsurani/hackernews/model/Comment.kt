@@ -13,6 +13,6 @@ data class Comment (@SerializedName("by")
                     @SerializedName("text")
                     var text : String,
                     @SerializedName("time")
-                    var time : Int,
+                    var time : Long,
                     @SerializedName("type")
                     var type : String)

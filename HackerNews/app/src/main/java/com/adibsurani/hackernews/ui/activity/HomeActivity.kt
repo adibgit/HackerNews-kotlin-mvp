@@ -34,7 +34,7 @@ class HomeActivity :
         setContentView(R.layout.activity_home)
         initView()
         initClick()
-        initAdapter()
+        initRecycler()
     }
 
     override fun onActivityInject() {
@@ -82,7 +82,7 @@ class HomeActivity :
 
     }
 
-    private fun initAdapter() {
+    private fun initRecycler() {
         RVHelper.setupVertical(recycler_story,this)
     }
 

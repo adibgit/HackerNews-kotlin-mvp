@@ -42,5 +42,4 @@ class PrefManager constructor(var sharedPreferences: SharedPreferences,
                 as String?, Story::class.java)
     }
 
-
 }

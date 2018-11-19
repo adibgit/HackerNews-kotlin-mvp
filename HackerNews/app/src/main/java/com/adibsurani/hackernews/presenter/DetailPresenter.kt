@@ -15,6 +15,11 @@ class DetailPresenter
 @Inject
 constructor(var api: Endpoints) : BasePresenter<DetailView>() {
 
+    interface OnChildComment {
+        fun getMoreComment(commentList : Comment)
+    }
+
+
     fun getComment(commentID : Int) {
 
         api.getComment(commentID).enqueue(object : Callback<Comment> {
@@ -28,11 +33,12 @@ constructor(var api: Endpoints) : BasePresenter<DetailView>() {
         })
     }
 
-    fun getChildComment(commentID : Int) {
+    fun getChildComment(onChildComment: OnChildComment,commentID : Int) {
 
         api.getComment(commentID).enqueue(object : Callback<Comment> {
             override fun onResponse(call: Call<Comment>, response: Response<Comment>) {
-                view?.getComment(response.body()!!)
+                view?.getChildComment(response.body()!!)
+                onChildComment.getMoreComment(response.body()!!)
             }
 
             override fun onFailure(call: Call<Comment>, t: Throwable) {

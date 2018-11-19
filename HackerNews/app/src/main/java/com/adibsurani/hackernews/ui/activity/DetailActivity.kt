@@ -1,7 +1,9 @@
 package com.adibsurani.hackernews.ui.activity
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.view.View.GONE
@@ -29,14 +31,15 @@ import com.google.gson.Gson
 
 class DetailActivity :
     BaseActivity(),
-    DetailView {
+    DetailView,
+    DetailPresenter.OnChildComment {
 
     @Inject
     lateinit var detailPresenter : DetailPresenter
     private lateinit var viewPagerAdapter : ViewPagerAdapter
-    private lateinit var onGetMoreComments : OnGetMoreComments
     private var parentCommentList = ArrayList<Comment>()
     private lateinit var story : Story
+    private val loadHandler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,9 +66,16 @@ class DetailActivity :
     }
 
     override fun getChildComment(comment: Comment) {
+        Log.d("CHILD COMMENTS ::", "$comment")
         val childCommentList = ArrayList<Comment>()
         childCommentList.add(comment)
-        onGetMoreComments.getMoreComment(childCommentList)
+        (viewPagerAdapter.getItem(0) as CommentFragment).setupChildComments(parentCommentList)
+    }
+
+    override fun getMoreComment(comment : Comment) {
+        Log.d("CHILD COMMENTS ::", "$comment")
+        val childCommentList = ArrayList<Comment>()
+        childCommentList.add(comment)
     }
 
     private fun setupData() {
@@ -76,6 +86,8 @@ class DetailActivity :
     }
 
     private fun setupView() {
+        text_title.text = story.title
+
         setupViewPager()
         setupClick()
     }
@@ -87,6 +99,11 @@ class DetailActivity :
         webview_news.settings.supportZoom()
         webview_news.loadUrl(story.url)
         webview_news.webViewClient =  (object : WebViewClient() {
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                super.onPageStarted(view, url, favicon)
+                webview_news.visibility = VISIBLE
+            }
+
             override fun onPageFinished(view: WebView?, url: String?) {
                 webview_news.visibility = VISIBLE
                 layout_shimmer_news.stopShimmerAnimation()
@@ -100,6 +117,7 @@ class DetailActivity :
         viewPagerAdapter.addFragment(CommentFragment(), "Comments")
         viewpager.adapter = viewPagerAdapter
         viewpager.offscreenPageLimit = 1
+        viewpager.currentItem = 0
         viewPagerAdapter.initClickTab(NEWS,image_news,image_comment,layout_webview,viewpager)
         setupFragmentData()
     }
@@ -111,28 +129,28 @@ class DetailActivity :
 
         layout_tab_comment.setOnClickListener {
             viewPagerAdapter.initClickTab(COMMENT,image_news,image_comment,layout_webview,viewpager)
-            viewpager.currentItem = 1
+            viewpager.currentItem = 0
+
+            loadHandler.postDelayed({
+                (viewPagerAdapter.getItem(0) as CommentFragment).setupComments(parentCommentList)
+            }, 1000)
         }
     }
 
     private fun setupFragmentData() {
-
-        for (i in 0 until story.kids.size) {
-            val comment = story.kids[i]
-            detailPresenter.getComment(comment)
+        story.kids?.let {
+            for (i in 0 until it.size) {
+                val comment = it[i]
+                detailPresenter.getComment(comment)
+            }
         }
-        (viewPagerAdapter.getItem(0) as CommentFragment).setupComments(parentCommentList)
     }
 
-    fun getChildComment(childCommentID : ArrayList<Int>) {
+    fun getChildCommentID(childCommentID : ArrayList<Int>) {
         for (i in 0 until childCommentID.size) {
             val childComment = childCommentID[i]
-            detailPresenter.getComment(childComment)
+            detailPresenter.getChildComment(this,childComment)
         }
-    }
-
-    interface OnGetMoreComments {
-        fun getMoreComment(commentList : ArrayList<Comment>)
     }
 
 

@@ -88,7 +88,7 @@
                     android:id="@+id/image_news"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="@dimen/_10sdp"
+                    android:layout_margin="@dimen/_12sdp"
                     android:src="@drawable/ic_news"
                     android:layout_alignParentTop="true"
                     />
@@ -104,7 +104,7 @@
                     android:id="@+id/image_comment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="@dimen/_10sdp"
+                    android:layout_margin="@dimen/_12sdp"
                     android:src="@drawable/ic_comment"
                     android:layout_alignParentTop="true"
                     />

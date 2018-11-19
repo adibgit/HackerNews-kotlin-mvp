@@ -23,14 +23,14 @@ abstract class BaseFragment :
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewFragment = inflater.inflate(initLayout(), container, false)
-        layoutInflaterFragment = LayoutInflater.from(activity)
-        initView()
+        layoutInflaterFragment = LayoutInflater.from(context!!)
 
         return viewFragment
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
         initData()
     }
 

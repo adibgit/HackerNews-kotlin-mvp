@@ -20,7 +20,6 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [AppModule::class, RetrofitModule::class, ApiModule::class, OkHttpModule::class])
 interface AppComponent {
-
     fun application(): Application
     fun gson(): Gson
     fun resources(): Resources
