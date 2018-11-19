@@ -31,13 +31,13 @@ import com.google.gson.Gson
 
 class DetailActivity :
     BaseActivity(),
-    DetailView,
-    DetailPresenter.OnChildComment {
+    DetailView {
 
     @Inject
     lateinit var detailPresenter : DetailPresenter
     private lateinit var viewPagerAdapter : ViewPagerAdapter
     private var parentCommentList = ArrayList<Comment>()
+    private var commentList = ArrayList<Comment>()
     private lateinit var story : Story
     private val loadHandler = Handler()
 
@@ -61,21 +61,44 @@ class DetailActivity :
     }
 
     override fun getComment(comment: Comment) {
-        Log.d("NEWS COMMENT ::", "$comment")
         parentCommentList.add(comment)
+
+        for (i in 0 until parentCommentList.size) {
+            val parentComment = parentCommentList[i]
+            parentComment.kids?.let {
+                for (j in 0 until parentComment.kids.size) {
+                    val commentID = parentComment.kids[j]
+                    detailPresenter.getChildComment(commentID)
+                }
+            }
+        }
     }
 
     override fun getChildComment(comment: Comment) {
-        Log.d("CHILD COMMENTS ::", "$comment")
-        val childCommentList = ArrayList<Comment>()
-        childCommentList.add(comment)
-        (viewPagerAdapter.getItem(0) as CommentFragment).setupChildComments(parentCommentList)
-    }
 
-    override fun getMoreComment(comment : Comment) {
-        Log.d("CHILD COMMENTS ::", "$comment")
-        val childCommentList = ArrayList<Comment>()
-        childCommentList.add(comment)
+        for (i in 0 until parentCommentList.size) {
+            val parentComment = parentCommentList[i]
+
+            parentComment.kids?.let {
+                Log.e("PARENT KIDS::", "${parentComment.kids}")
+                if (comment.parent == parentComment.id) {
+                    commentList.add(comment)
+                    parentComment.comment = commentList
+
+                    for (j in 0 until parentComment.comment.size) {
+                        val grandChildComment = parentComment.comment[j]
+
+                        grandChildComment.kids?.let {
+                            for (k in 0 until grandChildComment.kids.size) {
+                                val commentID = grandChildComment.kids[k]
+                                detailPresenter.getChildComment(commentID)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
     private fun setupData() {
@@ -132,7 +155,7 @@ class DetailActivity :
             viewpager.currentItem = 0
 
             loadHandler.postDelayed({
-                (viewPagerAdapter.getItem(0) as CommentFragment).setupComments(parentCommentList)
+                (viewPagerAdapter.getItem(0) as CommentFragment).setupChildComments(parentCommentList)
             }, 1000)
         }
     }
@@ -145,13 +168,5 @@ class DetailActivity :
             }
         }
     }
-
-    fun getChildCommentID(childCommentID : ArrayList<Int>) {
-        for (i in 0 until childCommentID.size) {
-            val childComment = childCommentID[i]
-            detailPresenter.getChildComment(this,childComment)
-        }
-    }
-
 
 }

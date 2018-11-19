@@ -6,8 +6,6 @@ import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import com.adibsurani.hackernews.R
 import com.adibsurani.hackernews.helper.RVHelper
@@ -15,15 +13,13 @@ import com.adibsurani.hackernews.helper.TimeHelper
 import com.adibsurani.hackernews.model.Comment
 import kotlinx.android.synthetic.main.row_comments.view.*
 
+class ChildCommentAdapter (private var context: Context,
+                      private var dataList: List<Comment>) : RecyclerView.Adapter<ChildCommentAdapter.ViewHolder>(){
 
-class CommentAdapter (private var context: Context,
-                      private var dataList: List<Comment>) : RecyclerView.Adapter<CommentAdapter.ViewHolder>(){
-
-    private lateinit var commentAdapter : CommentAdapter
-    private lateinit var childCommentAdapter : ChildCommentAdapter
+    private lateinit var itemView : View
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.row_comments, parent, false)
+        itemView = LayoutInflater.from(parent.context).inflate(R.layout.row_comments, parent, false)
         return ViewHolder(context, itemView)
     }
 
@@ -43,8 +39,9 @@ class CommentAdapter (private var context: Context,
         holder.bindItems(dataList[position])
     }
 
-    inner class ViewHolder(private val context: Context, itemView: View)
-        : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(private val context: Context,
+                           itemView: View
+    ) : RecyclerView.ViewHolder(itemView) {
 
         fun bindItems(data: Comment) {
 
@@ -58,37 +55,24 @@ class CommentAdapter (private var context: Context,
 
             if (data.kids != null) {
                 itemView.text_comment_count?.text = "${data.kids.size}" + " Comments"
-
-                Log.e("RECYCLER CHILD", "${data.comment}")
-
-//                commentAdapter = CommentAdapter(context,data.comment)
-//                RVHelper.setupVertical(itemView.recycler_child_comment,context)
-//                itemView.recycler_child_comment.adapter = commentAdapter
-
-                childCommentAdapter = ChildCommentAdapter(context,data.comment)
-                RVHelper.setupVertical(itemView.recycler_child_comment,context)
-                itemView.recycler_child_comment.adapter = childCommentAdapter
-
             } else {
-                itemView.layout_expand_comment.visibility = GONE
+                itemView.layout_expand_comment.visibility = View.GONE
             }
 
             itemView.layout_expand_comment.setOnClickListener {
                 when (itemView.image_collapse.visibility) {
-                    VISIBLE -> {
-                        itemView.image_expand.visibility = VISIBLE
-                        itemView.image_collapse.visibility = GONE
-                        itemView.recycler_child_comment.visibility = GONE
+                    View.VISIBLE -> {
+                        itemView.image_expand.visibility = View.VISIBLE
+                        itemView.image_collapse.visibility = View.GONE
+                        itemView.recycler_child_comment.visibility = View.GONE
                     }
-                    GONE -> {
-                        itemView.image_expand.visibility = GONE
-                        itemView.image_collapse.visibility = VISIBLE
-                        itemView.recycler_child_comment.visibility = VISIBLE
+                    View.GONE -> {
+                        itemView.image_expand.visibility = View.GONE
+                        itemView.image_collapse.visibility = View.VISIBLE
+                        itemView.recycler_child_comment.visibility = View.VISIBLE
                     }
                 }
             }
-
-
         }
 
     }

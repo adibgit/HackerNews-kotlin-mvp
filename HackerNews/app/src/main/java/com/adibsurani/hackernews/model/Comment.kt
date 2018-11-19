@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class Comment (@SerializedName("by")
                     var author : String,
                     @SerializedName("id")
-                    var id : String,
+                    var id : Int,
                     @SerializedName("kids")
                     var kids : ArrayList<Int>,
                     @SerializedName("parent")
@@ -15,4 +15,6 @@ data class Comment (@SerializedName("by")
                     @SerializedName("time")
                     var time : Long,
                     @SerializedName("type")
-                    var type : String)
+                    var type : String,
+                    @SerializedName("comment")
+                    var comment : ArrayList<Comment>)

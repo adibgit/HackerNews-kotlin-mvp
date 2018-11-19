@@ -6,7 +6,9 @@
     android:orientation="vertical"
     android:background="@drawable/layout_rounded_white"
     android:layout_marginStart="@dimen/_5sdp"
-    android:layout_marginEnd="@dimen/_5sdp">
+    android:layout_marginEnd="@dimen/_5sdp"
+    android:layout_marginTop="@dimen/_5sdp"
+    android:layout_marginBottom="@dimen/_5sdp">
 
     <TextView
         android:id="@+id/text_time"
@@ -66,12 +68,14 @@
                 android:layout_height="match_parent"
                 android:layout_marginEnd="@dimen/_10sdp">
                 <ImageView
+                    android:id="@+id/image_expand"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_expand"
-                    android:layout_margin="@dimen/_5sdp"/>
+                    android:layout_margin="@dimen/_5sdp"
+                    android:visibility="gone"/>
                 <ImageView
-                    android:visibility="gone"
+                    android:id="@+id/image_collapse"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_collapse"
@@ -94,7 +98,7 @@
             android:id="@+id/recycler_child_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_5sdp"/>
+            android:layout_marginStart="@dimen/_15sdp"/>
 
     </LinearLayout>
 
