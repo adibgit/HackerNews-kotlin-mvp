@@ -58,7 +58,7 @@ class DetailActivity :
 
     override fun getComment(comment: Comment) {
         parentCommentList.add(comment)
-
+        
         for (i in 0 until parentCommentList.size) {
             val parentComment = parentCommentList[i]
             parentComment.kids?.let {
@@ -72,22 +72,22 @@ class DetailActivity :
 
     override fun getChildComment(comment: Comment) {
 
-        for (i in 0 until parentCommentList.size) {
-            val parentComment = parentCommentList[i]
-
-            parentComment.kids?.let {
-                Log.e("PARENT KIDS::", "${parentComment.kids}")
-                if (comment.parent == parentComment.id) {
+        for (childComment in parentCommentList) {
+            childComment.kids?.let {
+                if (comment.parent == childComment.id) {
                     commentList.add(comment)
-                    parentComment.comment = commentList
-
-                    childCommentList.add(parentComment)
+                    childComment.comment = commentList
+                    passCommentList(childComment)
                 }
             }
         }
+    }
 
-        (viewPagerAdapter.getItem(0) as CommentFragment).setupChildComments(childCommentList)
-
+    private fun passCommentList(commentWithChild : Comment) {
+        childCommentList.add(commentWithChild)
+        if (childCommentList.size == parentCommentList.size) {
+            (viewPagerAdapter.getItem(0) as CommentFragment).setupChildComments(childCommentList)
+        }
     }
 
     private fun setupData() {

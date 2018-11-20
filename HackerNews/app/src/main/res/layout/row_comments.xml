@@ -31,7 +31,7 @@
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_10sdp"
-        android:text="@string/story_time"
+        android:text="... ..."
         android:textSize="@dimen/_8sdp"
         android:fontFamily="monospace"
         android:textColor="@color/grey_800"
@@ -45,12 +45,12 @@
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_10sdp"
-        android:text="@string/story_time"
+        android:text="... ..."
         android:textSize="@dimen/_10sdp"
         android:fontFamily="monospace"
         android:textColor="@color/grey_800"
         android:textStyle="bold"
-        android:maxLines="10"/>
+        />
 
 
     <LinearLayout
@@ -98,7 +98,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_child_comment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_5sdp"
             android:animateLayoutChanges="false"/>

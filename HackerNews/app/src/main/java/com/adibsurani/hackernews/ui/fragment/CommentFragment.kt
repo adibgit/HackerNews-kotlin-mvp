@@ -31,7 +31,8 @@ class CommentFragment :
     }
 
     fun setupChildComments(commentList: ArrayList<Comment>) {
-        Log.e("CHILD COMMENTS ::", "$commentList")
+        Log.e("COMMENTS ::", "$commentList")
+        Log.e("COMMENTS SIZE ::", "${commentList.size}")
 
         view?.let {
             commentAdapter = CommentAdapter(context!!, commentList)

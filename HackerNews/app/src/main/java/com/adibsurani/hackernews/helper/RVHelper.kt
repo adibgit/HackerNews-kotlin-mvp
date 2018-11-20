@@ -1,8 +1,10 @@
 package com.adibsurani.hackernews.helper
 
 import android.content.Context
+import android.support.v4.view.ViewCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import com.nshmura.snappysmoothscroller.LinearLayoutScrollVectorDetector
 import com.nshmura.snappysmoothscroller.SnappySmoothScroller
 
@@ -13,7 +15,10 @@ class RVHelper {
         fun setupVertical(recyclerView: RecyclerView, context: Context): RecyclerView {
 
             recyclerView.setHasFixedSize(false)
-            recyclerView.isNestedScrollingEnabled = false
+            ViewCompat.setNestedScrollingEnabled(recyclerView, false)
+            recyclerView.setItemViewCacheSize(20);
+            recyclerView.setDrawingCacheEnabled(true);
+            recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
             val layoutManager = object : LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false) {
                 override fun smoothScrollToPosition(recyclerView: RecyclerView, state: RecyclerView.State?, position: Int) {
                     val scroller = SnappySmoothScroller.Builder()
@@ -24,7 +29,6 @@ class RVHelper {
                 }
             }
             recyclerView.layoutManager = layoutManager
-
             return recyclerView
         }
 

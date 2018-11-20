@@ -59,12 +59,9 @@ class CommentAdapter (private var context: Context,
             if (data.kids != null) {
                 itemView.text_comment_count?.text = "${data.kids.size}" + " Comments"
 
-                Log.e("RECYCLER CHILD", "${data.comment}")
-
                 childCommentAdapter = ChildCommentAdapter(context,data.comment)
                 RVHelper.setupVertical(itemView.recycler_child_comment,context)
                 itemView.recycler_child_comment.adapter = childCommentAdapter
-
             } else {
                 itemView.layout_expand_comment.visibility = GONE
             }
@@ -83,8 +80,6 @@ class CommentAdapter (private var context: Context,
                     }
                 }
             }
-
-
         }
 
     }

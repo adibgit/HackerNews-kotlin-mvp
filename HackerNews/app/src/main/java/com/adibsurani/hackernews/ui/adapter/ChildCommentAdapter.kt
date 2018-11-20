@@ -3,18 +3,16 @@ package com.adibsurani.hackernews.ui.adapter
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.text.Html
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.adibsurani.hackernews.R
-import com.adibsurani.hackernews.helper.RVHelper
 import com.adibsurani.hackernews.helper.TimeHelper
 import com.adibsurani.hackernews.model.Comment
 import kotlinx.android.synthetic.main.row_comments.view.*
 
 class ChildCommentAdapter (private var context: Context,
-                      private var dataList: List<Comment>) : RecyclerView.Adapter<ChildCommentAdapter.ViewHolder>(){
+                      private var dataList: List<Comment>) : RecyclerView.Adapter<ChildCommentAdapter.ViewHolder>() {
 
     private lateinit var itemView : View
 
