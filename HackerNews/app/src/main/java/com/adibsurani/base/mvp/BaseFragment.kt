@@ -3,6 +3,7 @@ package com.adibsurani.base.mvp
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ abstract class BaseFragment :
     protected abstract fun initLayout(): Int
     protected abstract fun initView()
     protected abstract fun initData()
+    protected abstract fun initBack()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewFragment = inflater.inflate(initLayout(), container, false)
@@ -32,6 +34,23 @@ abstract class BaseFragment :
         super.onViewCreated(view, savedInstanceState)
         initView()
         initData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (view == null) {
+            return
+        }
+        view!!.isFocusableInTouchMode = true
+        view!!.requestFocus()
+        view!!.setOnKeyListener {_,keyCode,event ->
+            if (event.action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                initBack()
+                return@setOnKeyListener true
+            }
+            false
+        }
     }
 
     @Subscribe

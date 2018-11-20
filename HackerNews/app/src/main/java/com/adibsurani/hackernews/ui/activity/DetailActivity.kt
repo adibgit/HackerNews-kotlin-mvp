@@ -1,12 +1,10 @@
 package com.adibsurani.hackernews.ui.activity
 
-import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
-import android.view.View
-import android.view.View.*
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.adibsurani.base.mvp.BaseActivity
@@ -21,11 +19,9 @@ import com.adibsurani.hackernews.presenter.DetailPresenter
 import com.adibsurani.hackernews.ui.adapter.ViewPagerAdapter
 import com.adibsurani.hackernews.ui.fragment.CommentFragment
 import com.adibsurani.hackernews.view.DetailView
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_detail.*
 import javax.inject.Inject
-import com.google.gson.Gson
-
-
 
 
 class DetailActivity :
@@ -39,7 +35,6 @@ class DetailActivity :
     private var childCommentList = ArrayList<Comment>()
     private var commentList = ArrayList<Comment>()
     private lateinit var story : Story
-    private val loadHandler = Handler()
     private var clickCountComment : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -141,15 +136,20 @@ class DetailActivity :
         viewpager.offscreenPageLimit = 1
         viewpager.currentItem = 0
         viewPagerAdapter.initClickTab(NEWS,image_news,image_comment,layout_webview,viewpager)
-
     }
 
     private fun setupClick() {
         layout_tab_news.setOnClickListener {
+            webview_news.visibility = VISIBLE
+            viewpager.visibility = GONE
+
             viewPagerAdapter.initClickTab(NEWS,image_news,image_comment,layout_webview,viewpager)
         }
 
         layout_tab_comment.setOnClickListener {
+            webview_news.visibility = GONE
+            viewpager.visibility = VISIBLE
+
             viewPagerAdapter.initClickTab(COMMENT,image_news,image_comment,layout_webview,viewpager)
             viewpager.currentItem = 0
 
@@ -160,19 +160,27 @@ class DetailActivity :
         }
 
         image_refresh.setOnClickListener {
-            parentCommentList.clear()
-            setupFragmentData()
-            (viewPagerAdapter.getItem(0) as CommentFragment).setupLoad()
-            reloadWebView()
+            when (webview_news.visibility) {
+                VISIBLE -> {
+                    reloadWebView()
+                }
+                GONE -> {
+                    (viewPagerAdapter.getItem(0) as CommentFragment).setupLoad()
+                    parentCommentList.clear()
+                    setupFragmentData()
+                }
+            }
         }
     }
 
     private fun setupFragmentData() {
-        story.kids?.let {
-            for (i in 0 until it.size) {
-                val comment = it[i]
+        if (story.kids != null) {
+            for (i in 0 until story.kids.size) {
+                val comment = story.kids[i]
                 detailPresenter.getComment(comment)
             }
+        } else {
+            (viewPagerAdapter.getItem(0) as CommentFragment).doneLoad()
         }
     }
 

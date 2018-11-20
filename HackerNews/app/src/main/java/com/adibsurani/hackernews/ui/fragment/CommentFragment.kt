@@ -34,7 +34,7 @@ class CommentFragment :
         Log.e("CHILD COMMENTS ::", "$commentList")
 
         view?.let {
-            commentAdapter = CommentAdapter(context!!,commentList)
+            commentAdapter = CommentAdapter(context!!, commentList)
             recycler_comment.adapter = commentAdapter
             doneLoad()
         }
@@ -53,11 +53,19 @@ class CommentFragment :
         }
     }
 
-    private fun doneLoad() {
-        recycler_comment.visibility = VISIBLE
-        layout_shimmer_comment.stopShimmerAnimation()
-        layout_shimmer_comment.visibility = GONE
+    fun doneLoad() {
+        view?.let {
+            recycler_comment.visibility = VISIBLE
+            layout_shimmer_comment.stopShimmerAnimation()
+            layout_shimmer_comment.visibility = GONE
+        }
     }
+
+    override fun initBack() {
+        activity!!.finish()
+    }
+
+
 
 
 }

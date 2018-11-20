@@ -54,8 +54,10 @@ class HomeAdapter (private var context: Context,
 
             itemView.text_point?.text = "${data.score}"
 
-            data.kids?.let {
-                itemView.text_comment?.text = "${it.size}"
+            if (data.kids != null) {
+                itemView.text_comment?.text = "${data.kids.size}"
+            } else {
+                itemView.text_comment?.text = "0"
             }
 
             itemView.layout_root.setOnClickListener {
