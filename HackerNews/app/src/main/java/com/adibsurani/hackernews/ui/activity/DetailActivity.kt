@@ -6,8 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
+import android.view.View.*
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.adibsurani.base.mvp.BaseActivity
@@ -37,9 +36,11 @@ class DetailActivity :
     lateinit var detailPresenter : DetailPresenter
     private lateinit var viewPagerAdapter : ViewPagerAdapter
     private var parentCommentList = ArrayList<Comment>()
+    private var childCommentList = ArrayList<Comment>()
     private var commentList = ArrayList<Comment>()
     private lateinit var story : Story
     private val loadHandler = Handler()
+    private var clickCountComment : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,19 +86,12 @@ class DetailActivity :
                     commentList.add(comment)
                     parentComment.comment = commentList
 
-                    for (j in 0 until parentComment.comment.size) {
-                        val grandChildComment = parentComment.comment[j]
-
-                        grandChildComment.kids?.let {
-                            for (k in 0 until grandChildComment.kids.size) {
-                                val commentID = grandChildComment.kids[k]
-                                detailPresenter.getChildComment(commentID)
-                            }
-                        }
-                    }
+                    childCommentList.add(parentComment)
                 }
             }
         }
+
+        (viewPagerAdapter.getItem(0) as CommentFragment).setupChildComments(childCommentList)
 
     }
 
@@ -110,14 +104,15 @@ class DetailActivity :
 
     private fun setupView() {
         text_title.text = story.title
+        image_refresh.bringToFront()
 
         setupViewPager()
         setupClick()
     }
 
     private fun setupWebView() {
-        layout_shimmer_news.startShimmerAnimation()
-
+        progress_web.visibility = VISIBLE
+        progress_web.bringToFront()
         webview_news.settings.javaScriptEnabled = true
         webview_news.settings.supportZoom()
         webview_news.loadUrl(story.url)
@@ -129,10 +124,14 @@ class DetailActivity :
 
             override fun onPageFinished(view: WebView?, url: String?) {
                 webview_news.visibility = VISIBLE
-                layout_shimmer_news.stopShimmerAnimation()
-                layout_shimmer_news.visibility = GONE
+                progress_web.visibility = GONE
             }
         })
+    }
+
+    private fun reloadWebView() {
+        webview_news.reload()
+        setupWebView()
     }
 
     private fun setupViewPager() {
@@ -142,7 +141,7 @@ class DetailActivity :
         viewpager.offscreenPageLimit = 1
         viewpager.currentItem = 0
         viewPagerAdapter.initClickTab(NEWS,image_news,image_comment,layout_webview,viewpager)
-        setupFragmentData()
+
     }
 
     private fun setupClick() {
@@ -154,9 +153,17 @@ class DetailActivity :
             viewPagerAdapter.initClickTab(COMMENT,image_news,image_comment,layout_webview,viewpager)
             viewpager.currentItem = 0
 
-            loadHandler.postDelayed({
-                (viewPagerAdapter.getItem(0) as CommentFragment).setupChildComments(parentCommentList)
-            }, 1000)
+            if (clickCountComment == 0) {
+                clickCountComment = 1
+                setupFragmentData()
+            }
+        }
+
+        image_refresh.setOnClickListener {
+            parentCommentList.clear()
+            setupFragmentData()
+            (viewPagerAdapter.getItem(0) as CommentFragment).setupLoad()
+            reloadWebView()
         }
     }
 

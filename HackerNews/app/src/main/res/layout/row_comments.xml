@@ -8,7 +8,8 @@
     android:layout_marginStart="@dimen/_5sdp"
     android:layout_marginEnd="@dimen/_5sdp"
     android:layout_marginTop="@dimen/_5sdp"
-    android:layout_marginBottom="@dimen/_5sdp">
+    android:layout_marginBottom="@dimen/_5sdp"
+    android:elevation="@dimen/_2sdp">
 
     <TextView
         android:id="@+id/text_time"
@@ -98,7 +99,9 @@
             android:id="@+id/recycler_child_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_15sdp"/>
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:animateLayoutChanges="false"/>
 
     </LinearLayout>
 

@@ -53,11 +53,7 @@ class ChildCommentAdapter (private var context: Context,
 
             itemView.text_author?.text = data.author
 
-            if (data.kids != null) {
-                itemView.text_comment_count?.text = "${data.kids.size}" + " Comments"
-            } else {
-                itemView.layout_expand_comment.visibility = View.GONE
-            }
+            itemView.layout_expand_comment.visibility = View.GONE
 
             itemView.layout_expand_comment.setOnClickListener {
                 when (itemView.image_collapse.visibility) {

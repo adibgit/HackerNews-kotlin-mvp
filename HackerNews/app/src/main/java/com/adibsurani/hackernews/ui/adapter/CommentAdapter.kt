@@ -61,10 +61,6 @@ class CommentAdapter (private var context: Context,
 
                 Log.e("RECYCLER CHILD", "${data.comment}")
 
-//                commentAdapter = CommentAdapter(context,data.comment)
-//                RVHelper.setupVertical(itemView.recycler_child_comment,context)
-//                itemView.recycler_child_comment.adapter = commentAdapter
-
                 childCommentAdapter = ChildCommentAdapter(context,data.comment)
                 RVHelper.setupVertical(itemView.recycler_child_comment,context)
                 itemView.recycler_child_comment.adapter = childCommentAdapter
