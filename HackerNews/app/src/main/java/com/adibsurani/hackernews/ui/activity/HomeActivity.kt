@@ -1,70 +1,71 @@
 package com.adibsurani.hackernews.ui.activity
 
 import android.content.Intent
-import android.os.Bundle
 import android.util.Log
 import android.view.View.GONE
-import com.adibsurani.base.mvp.BaseActivity
 import com.adibsurani.hackernews.R
-import com.adibsurani.hackernews.di.component.DaggerHomeActivityComponent
-import com.adibsurani.hackernews.di.module.HomeActivityModule
-import com.adibsurani.hackernews.helper.RVHelper
-import com.adibsurani.hackernews.model.Story
-import com.adibsurani.hackernews.presenter.HomePresenter
+import com.adibsurani.hackernews.controller.contract.HomeContract
+import com.adibsurani.hackernews.dagger.component.DaggerActivityComponent
+import com.adibsurani.hackernews.dagger.module.ActivityModule
+import com.adibsurani.hackernews.helper.view.RVHelper
+import com.adibsurani.hackernews.networking.data.Story
 import com.adibsurani.hackernews.ui.adapter.HomeAdapter
-import com.adibsurani.hackernews.view.HomeView
+import com.adibsurani.hackernews.ui.base.BaseActivity
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_home.*
-import org.greenrobot.eventbus.Subscribe
-import org.jetbrains.anko.info
-import org.jetbrains.anko.startActivity
 import javax.inject.Inject
 
 class HomeActivity :
     BaseActivity(),
-    HomeView {
+    HomeContract.View {
 
     @Inject
-    lateinit var homePresenter : HomePresenter
+    lateinit var homePresenter : HomeContract.Presenter
     private lateinit var homeAdapter : HomeAdapter
     private var storyList = ArrayList<Story>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+    override fun initLayout(): Int {
+        return R.layout.activity_home
+    }
+
+    override fun initInject() {
+        val activityComponent = DaggerActivityComponent.builder()
+            .activityModule(ActivityModule(this))
+            .build()
+        activityComponent.inject(this)
+        homePresenter.attach(this)
+    }
+
+    override fun initCreate() {
         initView()
         initClick()
         initRecycler()
     }
 
-    override fun onActivityInject() {
-        DaggerHomeActivityComponent
-            .builder()
-            .appComponent(getAppcomponent())
-            .homeActivityModule(HomeActivityModule())
-            .build()
-            .inject(this)
+    override fun showProgress(show: Boolean) {}
 
-        homePresenter.attachView(this)
+    override fun showErrorMessage(error: String) {
+        Log.e("HomePresenter E",error)
     }
 
-    override fun getStoriesID(storiesID: ArrayList<Int>) {
-        Log.d("TOP STORY ID ::", "$storiesID")
-        getTopStory(storiesID)
+    override fun getStoriesIDSuccess(storiesID: ArrayList<Int>) {
+        Log.e("StoriesID OK", "$storiesID")
+        for (i in 0 until 25) {
+            val story = storiesID[i]
+            homePresenter.getStory(story)
+        }
     }
 
-    override fun getStory(story: Story) {
-        info { story }
+    override fun getStorySuccess(story: Story) {
         storyList.add(story)
         homeAdapter = HomeAdapter(this,storyList,{ partItem : Story -> dataClicked(partItem) })
         recycler_story.adapter = homeAdapter
-        doneLoadStory()
+        stopShimmer()
     }
 
     private fun initView() {
         homePresenter.getStoriesID()
-        layout_shimmer_story.startShimmerAnimation()
-        image_refresh.bringToFront()
+        startShimmer()
     }
 
     private fun initClick() {
@@ -74,20 +75,17 @@ class HomeActivity :
         }
     }
 
-    private fun getTopStory(storyList : ArrayList<Int>) {
-        for (i in 0 until 25) {
-            val story = storyList[i]
-            homePresenter.getStory(story)
-        }
-
-    }
-
     private fun initRecycler() {
         RVHelper.setupVertical(recycler_story,this)
     }
 
-    private fun doneLoadStory() {
-        layout_shimmer_story.stopShimmerAnimation()
+    private fun startShimmer() {
+        layout_shimmer_story.startShimmer()
+        image_refresh.bringToFront()
+    }
+
+    private fun stopShimmer() {
+        layout_shimmer_story.stopShimmer()
         layout_shimmer_story.visibility = GONE
     }
 
@@ -96,5 +94,7 @@ class HomeActivity :
         intent.putExtra("story",Gson().toJson(data))
         startActivity(intent)
     }
+
+
 
 }

@@ -43,7 +43,7 @@
         android:layout_above="@id/layout_bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.adibsurani.hackernews.helper.NonSwipeableViewPager
+        <com.adibsurani.hackernews.helper.view.NonSwipeableViewPager
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

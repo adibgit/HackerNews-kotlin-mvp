@@ -1,14 +1,14 @@
 package com.adibsurani.hackernews.ui.adapter
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.adibsurani.hackernews.R
-import com.adibsurani.hackernews.helper.TimeHelper
-import com.adibsurani.hackernews.model.Comment
+import com.adibsurani.hackernews.helper.TimeAgoUtil
+import com.adibsurani.hackernews.networking.data.Comment
 import kotlinx.android.synthetic.main.row_comments.view.*
 
 class ChildCommentAdapter (private var context: Context,
@@ -43,7 +43,7 @@ class ChildCommentAdapter (private var context: Context,
 
         fun bindItems(data: Comment) {
 
-            itemView.text_time?.text = TimeHelper.getTimeAgo(data.time)
+            itemView.text_time?.text = TimeAgoUtil.getTimeAgo(data.time)
 
             data.text?.let {
                 itemView.text_comment?.text = Html.fromHtml(it).toString()

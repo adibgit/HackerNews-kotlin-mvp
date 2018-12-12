@@ -1,7 +1,7 @@
 package com.adibsurani.hackernews.helper
 
-import com.adibsurani.hackernews.model.Comment
-import com.adibsurani.hackernews.model.Story
+import com.adibsurani.hackernews.networking.data.Comment
+import com.adibsurani.hackernews.networking.data.Story
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

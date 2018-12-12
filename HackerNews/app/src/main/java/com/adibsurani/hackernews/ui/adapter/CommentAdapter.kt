@@ -1,26 +1,30 @@
 package com.adibsurani.hackernews.ui.adapter
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.text.Html
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import com.adibsurani.hackernews.R
-import com.adibsurani.hackernews.helper.RVHelper
-import com.adibsurani.hackernews.helper.TimeHelper
-import com.adibsurani.hackernews.model.Comment
+import com.adibsurani.hackernews.helper.Constants.Companion.CHILD
+import com.adibsurani.hackernews.helper.view.RVHelper
+import com.adibsurani.hackernews.helper.TimeAgoUtil
+import com.adibsurani.hackernews.networking.data.Comment
+import com.adibsurani.hackernews.ui.fragment.CommentFragment
 import kotlinx.android.synthetic.main.row_comments.view.*
 
 
 class CommentAdapter (private var context: Context,
+                      private var fragment: CommentFragment,
                       private var dataList: List<Comment>) : RecyclerView.Adapter<CommentAdapter.ViewHolder>(){
 
     private lateinit var commentAdapter : CommentAdapter
     private lateinit var childCommentAdapter : ChildCommentAdapter
+    private var commentList = ArrayList<Comment>()
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.row_comments, parent, false)
@@ -48,7 +52,7 @@ class CommentAdapter (private var context: Context,
 
         fun bindItems(data: Comment) {
 
-            itemView.text_time?.text = TimeHelper.getTimeAgo(data.time)
+            itemView.text_time?.text = TimeAgoUtil.getTimeAgo(data.time)
 
             data.text?.let {
                 itemView.text_comment?.text = Html.fromHtml(it).toString()
@@ -58,10 +62,11 @@ class CommentAdapter (private var context: Context,
 
             if (data.kids != null) {
                 itemView.text_comment_count?.text = "${data.kids.size}" + " Comments"
+                RVHelper.setupVertical(itemView.recycler_child_comment, context)
+                for (comment in data.kids) {
+                    fragment.setupChildCommentRequest(comment, CHILD)
+                }
 
-                childCommentAdapter = ChildCommentAdapter(context,data.comment)
-                RVHelper.setupVertical(itemView.recycler_child_comment,context)
-                itemView.recycler_child_comment.adapter = childCommentAdapter
             } else {
                 itemView.layout_expand_comment.visibility = GONE
             }
@@ -80,6 +85,14 @@ class CommentAdapter (private var context: Context,
                     }
                 }
             }
+        }
+
+        fun addChildComment(comment: Comment) {
+            commentList.add(comment)
+            //if (commentList.size == dataList[position].kids.size) {
+                childCommentAdapter = ChildCommentAdapter(context, commentList)
+                itemView.recycler_child_comment.adapter = childCommentAdapter
+            //}
         }
 
     }
