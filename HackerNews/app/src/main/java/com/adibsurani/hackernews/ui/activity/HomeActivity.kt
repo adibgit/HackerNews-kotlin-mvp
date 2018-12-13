@@ -3,13 +3,14 @@ package com.adibsurani.hackernews.ui.activity
 import android.content.Intent
 import android.util.Log
 import android.view.View.GONE
+import android.view.View.VISIBLE
 import com.adibsurani.hackernews.R
 import com.adibsurani.hackernews.controller.contract.HomeContract
 import com.adibsurani.hackernews.dagger.component.DaggerActivityComponent
 import com.adibsurani.hackernews.dagger.module.ActivityModule
 import com.adibsurani.hackernews.helper.view.RVHelper
 import com.adibsurani.hackernews.networking.data.Story
-import com.adibsurani.hackernews.ui.adapter.HomeAdapter
+import com.adibsurani.hackernews.ui.adapter.NewsAdapter
 import com.adibsurani.hackernews.ui.base.BaseActivity
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_home.*
@@ -21,7 +22,7 @@ class HomeActivity :
 
     @Inject
     lateinit var homePresenter : HomeContract.Presenter
-    private lateinit var homeAdapter : HomeAdapter
+    private lateinit var newsAdapter: NewsAdapter
     private var storyList = ArrayList<Story>()
 
     override fun initLayout(): Int {
@@ -58,9 +59,14 @@ class HomeActivity :
 
     override fun getStorySuccess(story: Story) {
         storyList.add(story)
-        homeAdapter = HomeAdapter(this,storyList,{ partItem : Story -> dataClicked(partItem) })
-        recycler_story.adapter = homeAdapter
-        stopShimmer()
+        storyList.sortBy {
+            it.score
+        }
+        storyList.reverse()
+        if (storyList.size == 25) {
+            newsAdapter.setDataSource(storyList)
+            stopShimmer()
+        }
     }
 
     private fun initView() {
@@ -71,15 +77,21 @@ class HomeActivity :
     private fun initClick() {
         image_refresh.setOnClickListener {
             storyList.clear()
+            newsAdapter.clearAdapter()
             homePresenter.getStoriesID()
+            startShimmer()
         }
     }
 
     private fun initRecycler() {
         RVHelper.setupVertical(recycler_story,this)
+        newsAdapter = NewsAdapter(this,this)
+        recycler_story.adapter = newsAdapter
     }
 
     private fun startShimmer() {
+        recycler_story.visibility = GONE
+        layout_shimmer_story.visibility = VISIBLE
         layout_shimmer_story.startShimmer()
         image_refresh.bringToFront()
     }
@@ -87,14 +99,13 @@ class HomeActivity :
     private fun stopShimmer() {
         layout_shimmer_story.stopShimmer()
         layout_shimmer_story.visibility = GONE
+        recycler_story.visibility = VISIBLE
     }
 
-    private fun dataClicked(data : Story) {
+    fun dataClicked(data : Story) {
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra("story",Gson().toJson(data))
         startActivity(intent)
     }
-
-
 
 }

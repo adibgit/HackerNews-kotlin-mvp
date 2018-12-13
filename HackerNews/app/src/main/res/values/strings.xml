@@ -3,8 +3,8 @@
 
     <!--placeholder-->
     <string name="story_title">Story Title</string>
-    <string name="story_source">Story Source</string>
-    <string name="story_time">Story Source</string>
+    <string name="story_source">news.com</string>
+    <string name="story_time">A Day Ago</string>
     <string name="story_point_count">9999</string>
     <string name="story_comment_count">999</string>
 </resources>

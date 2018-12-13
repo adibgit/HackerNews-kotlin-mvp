@@ -16,6 +16,9 @@ import com.adibsurani.hackernews.ui.base.BaseActivity
 import com.adibsurani.hackernews.ui.fragment.CommentFragment
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_detail.*
+import android.webkit.WebChromeClient
+
+
 
 
 class DetailActivity :
@@ -53,8 +56,8 @@ class DetailActivity :
     }
 
     private fun setupWebView() {
-        progress_web.visibility = VISIBLE
-        progress_web.bringToFront()
+        progressBar.visibility = VISIBLE
+        progressBar.bringToFront()
         webview_news.settings.javaScriptEnabled = true
         webview_news.settings.supportZoom()
         webview_news.settings.builtInZoomControls = true
@@ -62,6 +65,12 @@ class DetailActivity :
         webview_news.clearSslPreferences()
         webview_news.clearCache(true)
         webview_news.loadUrl(story.url)
+        webview_news.webChromeClient = (object : WebChromeClient() {
+            override fun onProgressChanged(view: WebView?, newProgress: Int) {
+                super.onProgressChanged(view, newProgress)
+                progressBar.progress = newProgress
+            }
+        })
         webview_news.webViewClient =  (object : WebViewClient() {
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                 super.onPageStarted(view, url, favicon)
@@ -69,7 +78,7 @@ class DetailActivity :
             }
             override fun onPageFinished(view: WebView?, url: String?) {
                 webview_news.visibility = VISIBLE
-                progress_web.visibility = GONE
+                progressBar.visibility = GONE
             }
         })
     }

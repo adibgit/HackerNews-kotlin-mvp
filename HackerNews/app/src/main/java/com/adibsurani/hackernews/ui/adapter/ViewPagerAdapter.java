@@ -54,15 +54,15 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
                              ViewPager viewpager) {
         switch (Tab) {
             case NEWS:
-                image_news.setColorFilter(context.getResources().getColor(R.color.colorPrimary));
-                image_comment.setColorFilter(context.getResources().getColor(R.color.colorBlack));
+                image_news.setColorFilter(context.getResources().getColor(R.color.blue_500));
+                image_comment.setColorFilter(context.getResources().getColor(R.color.colorAccent));
 
                 layout_news.setVisibility(View.VISIBLE);
                 viewpager.setVisibility(View.GONE);
                 break;
             case COMMENT:
-                image_news.setColorFilter(context.getResources().getColor(R.color.colorBlack));
-                image_comment.setColorFilter(context.getResources().getColor(R.color.colorPrimary));
+                image_news.setColorFilter(context.getResources().getColor(R.color.colorAccent));
+                image_comment.setColorFilter(context.getResources().getColor(R.color.blue_500));
 
                 layout_news.setVisibility(View.GONE);
                 viewpager.setVisibility(View.VISIBLE);

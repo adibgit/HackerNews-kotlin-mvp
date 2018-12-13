@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_5sdp"
     android:elevation="@dimen/_1sdp"
-    android:background="@drawable/layout_rounded_white">
+    android:background="@drawable/layout_rounded_grey">
 
     <View
         android:layout_width="match_parent"

@@ -26,16 +26,14 @@ import java.util.List;
 public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.ViewHolder> {
 
     private List<Comment> commentList;
-    private List<Comment> childCommentList;
-    private List<String> kidsList;
+    private List<Comment> childComment;
     private Context context;
     private CommentListAdapter commentListAdapter;
 
     public CommentListAdapter(Context context) {
         this.context = context;
         commentList = new ArrayList<>();
-        childCommentList = new ArrayList<>();
-        kidsList = new ArrayList<>();
+        childComment = new ArrayList<>();
     }
 
     @Override
@@ -56,16 +54,11 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
         if (comment.getKids() != null) {
             if (comment.getKids().size() > 0) {
                 holder.textCommentCount.setText((Integer.toString(comment.getKids().size()) + " Comments"));
-
-                RVHelper.Companion.setupVertical(holder.recyclerViewComment, context);
-                commentListAdapter = new CommentListAdapter(context);
-                holder.recyclerViewComment.setAdapter(commentListAdapter);
-
+                setupAdapter(holder.recyclerViewComment);
                 for (int i = 0; i<comment.getKids().size(); i++) {
                     String commentID = Integer.toString(comment.getKids().get(i));
                     getComment(commentID);
                 }
-
             } else {
                 holder.layoutExpandComment.setVisibility(View.GONE);
             }
@@ -87,8 +80,6 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.e("Parent", Integer.toString(response.optInt("parent")));
-
-
                         Comment comment = new Comment(
                                 response.optString("by"),
                                 response.optInt("id"),
@@ -100,7 +91,6 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
                         );
                         commentListAdapter.addDataSource(comment);
                     }
-
                     @Override
                     public void onError(ANError error) {
                         Log.e("CHILD COMMENT KO", error.getErrorDetail());
@@ -118,6 +108,27 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
         return kidsList;
     }
 
+    public void setDataSource(List<Comment> commentList) {
+        this.commentList.addAll(commentList);
+        notifyDataSetChanged();
+    }
+
+    public void addDataSource(Comment comment) {
+        this.commentList.add(comment);
+        notifyDataSetChanged();
+    }
+
+    public void clearAdapter() {
+        this.commentList.clear();
+        notifyDataSetChanged();
+    }
+
+    public void setupAdapter(RecyclerView recyclerView) {
+        RVHelper.Companion.setupVertical(recyclerView, context);
+        commentListAdapter = new CommentListAdapter(context);
+        recyclerView.setAdapter(commentListAdapter);
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView textTime, textComment, textAuthor, textCommentCount;
         private LinearLayout layoutExpandComment;
@@ -132,20 +143,5 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
             layoutExpandComment = itemView.findViewById(R.id.layout_expand_comment);
             recyclerViewComment = itemView.findViewById(R.id.recycler_child_comment);
         }
-    }
-
-    public void setDataSource(List<Comment> commentList) {
-        this.commentList.addAll(commentList);
-        notifyDataSetChanged();
-    }
-
-    public void addDataSource(Comment comment) {
-        this.commentList.add(comment);
-        notifyDataSetChanged();
-    }
-
-    public void clearAdapter() {
-        this.commentList.clear();
-        notifyDataSetChanged();
     }
 }

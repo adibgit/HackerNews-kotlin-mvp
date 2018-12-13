@@ -38,7 +38,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="scalingPercent" value="44" />
+                                                <entry key="scalingPercent" value="40" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -49,8 +49,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="a544a6" />
-                                      <entry key="foregroundImage" value="$PROJECT_DIR$/app/src/main/res/drawable/drawable-xxxhdpi/ic_news.png" />
+                                      <entry key="backgroundColor" value="1d1d1d" />
+                                      <entry key="foregroundImage" value="$PROJECT_DIR$/app/src/main/res/drawable/ic_app.png" />
                                     </map>
                                   </option>
                                 </PersistentState>

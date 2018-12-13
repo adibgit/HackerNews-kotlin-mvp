@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#7E57C2</color>
-    <color name="colorPrimaryDark">#7E57C2</color>
+    <color name="colorPrimary">#212121</color>
+    <color name="colorPrimaryDark">#212121</color>
     <color name="colorAccent">#FFFFFF</color>
     <color name="colorPurpleLight">#9575CD</color>
-    <color name="colorShimmer">#DDDDDD</color>
+    <color name="colorShimmer">#757575</color>
     <color name="colorBlack">#000000</color>
 
     <color name="red_100">#FFCDD2</color>

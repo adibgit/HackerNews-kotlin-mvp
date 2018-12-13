@@ -36,18 +36,15 @@
         android:id="@+id/layout_swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/layout_shimmer_story"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                shimmer:duration="1500">
-
+                shimmer:duration="2000">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -60,7 +57,6 @@
                     <include layout="@layout/row_loading_story"/>
                     <include layout="@layout/row_loading_story"/>
                 </LinearLayout>
-
             </com.facebook.shimmer.ShimmerFrameLayout>
 
             <androidx.recyclerview.widget.RecyclerView
