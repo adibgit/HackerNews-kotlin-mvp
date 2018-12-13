@@ -7,13 +7,11 @@ class CommentContract {
 
     interface View: BaseContract.View {
         fun showErrorMessage(error: String)
-        fun getCommentSuccess(comment: Comment,
-                              commentType: Int)
+        fun getCommentSuccess(comment: Comment)
     }
 
     interface Presenter: BaseContract.Presenter<View> {
-        fun getComment(commentID: Int,
-                       commentType: Int)
+        fun getComment(commentID: Int)
     }
 
 }

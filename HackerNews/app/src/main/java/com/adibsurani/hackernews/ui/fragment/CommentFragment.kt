@@ -7,11 +7,9 @@ import com.adibsurani.hackernews.R
 import com.adibsurani.hackernews.controller.contract.CommentContract
 import com.adibsurani.hackernews.dagger.component.DaggerFragmentComponent
 import com.adibsurani.hackernews.dagger.module.FragmentModule
-import com.adibsurani.hackernews.helper.Constants.Companion.CHILD
-import com.adibsurani.hackernews.helper.Constants.Companion.PARENT
 import com.adibsurani.hackernews.helper.view.RVHelper
 import com.adibsurani.hackernews.networking.data.Comment
-import com.adibsurani.hackernews.ui.adapter.CommentAdapter
+import com.adibsurani.hackernews.ui.adapter.CommentListAdapter
 import com.adibsurani.hackernews.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_comments.*
 import javax.inject.Inject
@@ -22,10 +20,9 @@ class CommentFragment :
 
     @Inject
     lateinit var commentPresenter: CommentContract.Presenter
-    private lateinit var commentAdapter : CommentAdapter
-    private var parentKidList = ArrayList<Int>()
-    private var parentCommentList = ArrayList<Comment>()
-    private var childCommentList = ArrayList<Comment>()
+    private lateinit var commentListAdapter: CommentListAdapter
+    private var kidsCount: Int = 0
+    private var kidsList =  ArrayList<Int>()
     private var commentList = ArrayList<Comment>()
 
     override fun initLayout(): Int {
@@ -55,47 +52,27 @@ class CommentFragment :
         Log.e("CommentPresenter E", error)
     }
 
-    override fun getCommentSuccess(comment: Comment,
-                                   commentType: Int) {
-
-        when (commentType) {
-            PARENT -> {
-                parentCommentList.add(comment)
-                Log.e("ParentComment size", "${parentCommentList.size}")
-                Log.e("KidList size", "${parentKidList.size}")
-
-                if (parentCommentList.size == parentKidList.size) {
-                    for (parent in parentCommentList) {
-                        passCommentList(parent)
-                    }
-                }
-            }
-            CHILD -> {
-                commentAdapter.ViewHolder(context!!, view!!).addChildComment(comment)
-            }
+    override fun getCommentSuccess(comment: Comment) {
+        Log.e("CommentID ID", "${comment.id}")
+        comment.kids?.let {
+            Log.e("CommentID kids", "${comment.kids.size}")
         }
-    }
 
-    private fun passCommentList(commentWithChild : Comment) {
-        childCommentList.add(commentWithChild)
-        Log.e("CommentPassed Size", "${childCommentList.size}")
-        Log.e("Parent Comment Size", "${parentKidList.size}")
+        commentList.add(comment)
 
-        if (childCommentList.size == parentKidList.size) {
-            setupChildComments(childCommentList)
+        if (commentList.size == kidsCount) {
+            commentListAdapter.setDataSource(commentList)
+            doneLoad()
         }
-    }
-
-    fun setupChildCommentRequest(commentID: Int, commentType: Int) {
-        commentPresenter.getComment(commentID, commentType)
     }
 
     fun setupCommentRequest(kids: ArrayList<Int>) {
         view?.let {
             if (kids != null) {
+                kidsCount = kids.size
+                kidsList = kids
                 for (comment in kids) {
-                    parentKidList.add(comment)
-                    commentPresenter.getComment(comment, PARENT)
+                    commentPresenter.getComment(comment)
                 }
             }
         } ?: kotlin.run {
@@ -103,27 +80,21 @@ class CommentFragment :
         }
     }
 
-    private fun setupChildComments(commentList: ArrayList<Comment>) {
-        Log.e("COMMENTS ::", "$commentList")
-        Log.e("COMMENTS SIZE ::", "${commentList.size}")
-
-        commentAdapter = CommentAdapter(context!!,this, commentList)
-        recycler_comment.adapter = commentAdapter
-        doneLoad()
-    }
-
     fun reloadComments() {
         view?.let {
             setupLoad()
-            parentCommentList.clear()
-            for (comment in parentKidList) {
-                commentPresenter.getComment(comment, PARENT)
+            commentListAdapter.clearAdapter()
+            commentList.clear()
+            for (comment in kidsList) {
+                commentPresenter.getComment(comment)
             }
         }
     }
 
     private fun setupRecycler() {
         RVHelper.setupVertical(recycler_comment,context!!)
+        commentListAdapter = CommentListAdapter(context)
+        recycler_comment.adapter = commentListAdapter
     }
 
     private fun setupLoad() {

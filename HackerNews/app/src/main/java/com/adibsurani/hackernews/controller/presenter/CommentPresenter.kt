@@ -25,17 +25,13 @@ class CommentPresenter: CommentContract.Presenter {
         this.view = view
     }
 
-    override fun getComment(commentID: Int,
-                            commentType: Int) {
+    override fun getComment(commentID: Int) {
         var subscribe = api
             .getComment(commentID)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ comment: Comment ->
-                when (commentType) {
-                    PARENT  -> { view.getCommentSuccess(comment, PARENT) }
-                    CHILD   -> { view.getCommentSuccess(comment, CHILD) }
-                }
+                view.getCommentSuccess(comment)
             }, { error ->
                 view.showErrorMessage(error.localizedMessage)
             })

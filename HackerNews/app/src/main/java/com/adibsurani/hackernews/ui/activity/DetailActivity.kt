@@ -57,13 +57,16 @@ class DetailActivity :
         progress_web.bringToFront()
         webview_news.settings.javaScriptEnabled = true
         webview_news.settings.supportZoom()
+        webview_news.settings.builtInZoomControls = true
+        webview_news.settings.displayZoomControls = false
+        webview_news.clearSslPreferences()
+        webview_news.clearCache(true)
         webview_news.loadUrl(story.url)
         webview_news.webViewClient =  (object : WebViewClient() {
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                 super.onPageStarted(view, url, favicon)
                 webview_news.visibility = VISIBLE
             }
-
             override fun onPageFinished(view: WebView?, url: String?) {
                 webview_news.visibility = VISIBLE
                 progress_web.visibility = GONE

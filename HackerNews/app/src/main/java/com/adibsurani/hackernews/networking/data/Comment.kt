@@ -15,6 +15,4 @@ data class Comment (@SerializedName     ("by")
                     @SerializedName     ("time")
                     var time            : Long,
                     @SerializedName     ("type")
-                    var type            : String,
-                    @SerializedName     ("comment")
-                    var comment         : ArrayList<Comment>)
+                    var type            : String)
