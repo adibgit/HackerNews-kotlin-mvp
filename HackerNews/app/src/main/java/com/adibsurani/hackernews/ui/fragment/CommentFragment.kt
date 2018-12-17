@@ -59,7 +59,6 @@ class CommentFragment :
         }
 
         commentList.add(comment)
-
         if (commentList.size == kidsCount) {
             commentListAdapter.setDataSource(commentList)
             doneLoad()

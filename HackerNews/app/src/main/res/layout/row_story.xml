@@ -11,12 +11,12 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_30sdp"
+        android:layout_height="@dimen/_20sdp"
         android:orientation="horizontal"
         android:gravity="end">
         <ImageView
             android:id="@+id/img_bookmark"
-            android:layout_width="@dimen/_20sdp"
+            android:layout_width="@dimen/_15sdp"
             android:layout_height="match_parent"
             android:src="@drawable/ic_bookmark_blank"
             android:layout_marginStart="@dimen/_10sdp"
@@ -24,7 +24,7 @@
         <ImageView
             android:layout_toStartOf="@id/text_point"
             android:id="@+id/img_score"
-            android:layout_width="@dimen/_20sdp"
+            android:layout_width="@dimen/_15sdp"
             android:layout_height="match_parent"
             android:src="@drawable/ic_score"
             android:tint="@color/grey_500"
@@ -44,7 +44,7 @@
         <ImageView
             android:layout_toStartOf="@id/text_comment"
             android:id="@+id/img_comment"
-            android:layout_width="@dimen/_20sdp"
+            android:layout_width="@dimen/_15sdp"
             android:layout_height="match_parent"
             android:src="@drawable/ic_comment"
             android:tint="@color/grey_500"
@@ -71,9 +71,9 @@
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_10sdp"
         android:text="@string/story_time"
-        android:textSize="@dimen/_10sdp"
+        android:textSize="@dimen/_6sdp"
         android:fontFamily="monospace"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/grey_400"
         android:textStyle="bold"/>
     <TextView
         android:id="@+id/text_title"
@@ -85,8 +85,9 @@
         android:ellipsize="end"
         android:maxLines="3"
         android:text="@string/story_title"
-        android:textSize="@dimen/_13sdp"
+        android:textSize="@dimen/_10sdp"
         android:fontFamily="monospace"
+        android:textStyle="bold"
         android:textColor="@color/colorAccent"/>
     <TextView
         android:id="@+id/text_source"
@@ -97,9 +98,10 @@
         android:layout_marginEnd="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_10sdp"
         android:text="@string/story_source"
-        android:textSize="@dimen/_10sdp"
+        android:textSize="@dimen/_8sdp"
         android:fontFamily="monospace"
-        android:textColor="@color/colorAccent"
+        android:textAllCaps="true"
+        android:textColor="@color/blue_500"
         android:textStyle="bold"/>
 
 </LinearLayout>

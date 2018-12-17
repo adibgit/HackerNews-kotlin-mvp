@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/layout_root"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -33,7 +34,7 @@
         android:layout_marginEnd="@dimen/_10sdp"
         android:textSize="@dimen/_8sdp"
         android:fontFamily="monospace"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/orange_400"
         android:textStyle="bold"/>
 
     <TextView
@@ -44,12 +45,11 @@
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_10sdp"
-        android:textSize="@dimen/_10sdp"
+        android:textSize="@dimen/_8sdp"
         android:fontFamily="monospace"
         android:textColor="@color/colorAccent"
         android:textStyle="bold"
         />
-
 
     <LinearLayout
         android:id="@+id/layout_expand_comment"
@@ -63,44 +63,60 @@
             android:layout_gravity="center"
             android:gravity="center">
             <FrameLayout
-                android:layout_width="@dimen/_25sdp"
+                android:layout_width="@dimen/_20sdp"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="@dimen/_10sdp">
+                android:layout_marginEnd="@dimen/_5sdp">
                 <ImageView
                     android:id="@+id/image_expand"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_expand"
                     android:tint="@color/colorAccent"
-                    android:layout_margin="@dimen/_5sdp"
-                    android:visibility="gone"/>
+                    android:layout_margin="@dimen/_5sdp" />
                 <ImageView
                     android:id="@+id/image_collapse"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_collapse"
                     android:layout_margin="@dimen/_5sdp"
-                    android:tint="@color/colorAccent"/>
+                    android:tint="@color/colorAccent"
+                    android:visibility="gone"/>
             </FrameLayout>
             <TextView
                 android:id="@+id/text_comment_count"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="Comment"
-                android:textSize="@dimen/_10sdp"
+                android:textSize="@dimen/_8sdp"
                 android:fontFamily="monospace"
                 android:textColor="@color/grey_200"
                 android:textStyle="bold"
                 android:gravity="center"/>
         </LinearLayout>
+    </LinearLayout>
 
+
+    <LinearLayout
+        android:id="@+id/layout_nest_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+       <View
+           android:layout_width="@dimen/_1sdp"
+           android:layout_height="match_parent"
+           android:background="@color/blue_500"
+           android:layout_marginStart="@dimen/_5sdp"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_child_comment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:animateLayoutChanges="false"/>
-        </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
 
 </LinearLayout>

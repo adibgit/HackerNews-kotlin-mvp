@@ -1,8 +1,6 @@
 package com.adibsurani.hackernews.controller.presenter
 
 import com.adibsurani.hackernews.controller.contract.CommentContract
-import com.adibsurani.hackernews.helper.Constants.Companion.CHILD
-import com.adibsurani.hackernews.helper.Constants.Companion.PARENT
 import com.adibsurani.hackernews.networking.api.ApiServiceInterface
 import com.adibsurani.hackernews.networking.data.Comment
 import io.reactivex.android.schedulers.AndroidSchedulers

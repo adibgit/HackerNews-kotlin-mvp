@@ -49,21 +49,26 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
 
         if (comment.getText() != null) {
             holder.textComment.setText(Html.fromHtml(comment.getText()));
+        } else {
+            holder.layoutRoot.setVisibility(View.GONE);
         }
 
         if (comment.getKids() != null) {
             if (comment.getKids().size() > 0) {
                 holder.textCommentCount.setText((Integer.toString(comment.getKids().size()) + " Comments"));
-                setupAdapter(holder.recyclerViewComment);
-                for (int i = 0; i<comment.getKids().size(); i++) {
-                    String commentID = Integer.toString(comment.getKids().get(i));
-                    getComment(commentID);
-                }
+                holder.recyclerViewComment.setVisibility(View.GONE);
+//                setupAdapter(holder.recyclerViewComment);
+//                for (int i = 0; i<comment.getKids().size(); i++) {
+//                    String commentID = Integer.toString(comment.getKids().get(i));
+//                    getComment(commentID);
+//                }
             } else {
                 holder.layoutExpandComment.setVisibility(View.GONE);
+                holder.layoutNestComment.setVisibility(View.GONE);
             }
         } else {
             holder.layoutExpandComment.setVisibility(View.GONE);
+            holder.layoutNestComment.setVisibility(View.GONE);
         }
     }
 
@@ -131,7 +136,7 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView textTime, textComment, textAuthor, textCommentCount;
-        private LinearLayout layoutExpandComment;
+        private LinearLayout layoutExpandComment, layoutRoot, layoutNestComment;
         private RecyclerView recyclerViewComment;
 
         ViewHolder(View itemView) {
@@ -141,6 +146,8 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
             textAuthor = itemView.findViewById(R.id.text_author);
             textCommentCount = itemView.findViewById(R.id.text_comment_count);
             layoutExpandComment = itemView.findViewById(R.id.layout_expand_comment);
+            layoutRoot = itemView.findViewById(R.id.layout_root);
+            layoutNestComment = itemView.findViewById(R.id.layout_nest_comment);
             recyclerViewComment = itemView.findViewById(R.id.recycler_child_comment);
         }
     }

@@ -8,9 +8,13 @@ import com.adibsurani.hackernews.R
 import com.adibsurani.hackernews.controller.contract.HomeContract
 import com.adibsurani.hackernews.dagger.component.DaggerActivityComponent
 import com.adibsurani.hackernews.dagger.module.ActivityModule
+import com.adibsurani.hackernews.helper.Constants.Companion.BEST
+import com.adibsurani.hackernews.helper.Constants.Companion.NEW
+import com.adibsurani.hackernews.helper.Constants.Companion.TOP
 import com.adibsurani.hackernews.helper.view.RVHelper
 import com.adibsurani.hackernews.networking.data.Story
 import com.adibsurani.hackernews.ui.adapter.NewsAdapter
+import com.adibsurani.hackernews.ui.adapter.StoryTypeAdapter
 import com.adibsurani.hackernews.ui.base.BaseActivity
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_home.*
@@ -23,7 +27,9 @@ class HomeActivity :
     @Inject
     lateinit var homePresenter : HomeContract.Presenter
     private lateinit var newsAdapter: NewsAdapter
+    private lateinit var storyTypeAdapter: StoryTypeAdapter
     private var storyList = ArrayList<Story>()
+    private var typeList = ArrayList<String>()
 
     override fun initLayout(): Int {
         return R.layout.activity_home
@@ -41,6 +47,7 @@ class HomeActivity :
         initView()
         initClick()
         initRecycler()
+        initTypeList()
     }
 
     override fun showProgress(show: Boolean) {}
@@ -87,6 +94,17 @@ class HomeActivity :
         RVHelper.setupVertical(recycler_story,this)
         newsAdapter = NewsAdapter(this,this)
         recycler_story.adapter = newsAdapter
+
+        RVHelper.setupHorizontal(recycler_type, this)
+        storyTypeAdapter = StoryTypeAdapter(this,this)
+        recycler_type.adapter = storyTypeAdapter
+    }
+
+    private fun initTypeList() {
+        typeList.add("Top")
+        typeList.add("Best")
+        typeList.add("New")
+        storyTypeAdapter.setDataSource(typeList)
     }
 
     private fun startShimmer() {
@@ -106,6 +124,14 @@ class HomeActivity :
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra("story",Gson().toJson(data))
         startActivity(intent)
+    }
+
+    fun typeClicked(position: Int) {
+        when (position) {
+            0 -> { }
+            1 -> { }
+            2 -> { }
+        }
     }
 
 }

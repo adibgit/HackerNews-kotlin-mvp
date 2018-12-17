@@ -7,7 +7,9 @@ class Constants {
         const val NEWS      : Int = 0
         const val COMMENT   : Int = 1
 
-        const val PARENT    : Int = 0
-        const val CHILD     : Int = 1
+        const val PREF_NAME : String = "HACKER NEWS"
+        const val TOP       : String = "TOP"
+        const val BEST      : String = "BEST"
+        const val NEW       : String = "NEW"
     }
 }
