@@ -8,9 +8,6 @@ import com.adibsurani.hackernews.R
 import com.adibsurani.hackernews.controller.contract.HomeContract
 import com.adibsurani.hackernews.dagger.component.DaggerActivityComponent
 import com.adibsurani.hackernews.dagger.module.ActivityModule
-import com.adibsurani.hackernews.helper.Constants.Companion.BEST
-import com.adibsurani.hackernews.helper.Constants.Companion.NEW
-import com.adibsurani.hackernews.helper.Constants.Companion.TOP
 import com.adibsurani.hackernews.helper.view.RVHelper
 import com.adibsurani.hackernews.networking.data.Story
 import com.adibsurani.hackernews.ui.adapter.NewsAdapter

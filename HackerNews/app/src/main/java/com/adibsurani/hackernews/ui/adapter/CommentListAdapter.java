@@ -57,11 +57,11 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
             if (comment.getKids().size() > 0) {
                 holder.textCommentCount.setText((Integer.toString(comment.getKids().size()) + " Comments"));
                 holder.recyclerViewComment.setVisibility(View.GONE);
-//                setupAdapter(holder.recyclerViewComment);
-//                for (int i = 0; i<comment.getKids().size(); i++) {
-//                    String commentID = Integer.toString(comment.getKids().get(i));
-//                    getComment(commentID);
-//                }
+                setupAdapter(holder.recyclerViewComment);
+                for (int i = 0; i<comment.getKids().size(); i++) {
+                    String commentID = Integer.toString(comment.getKids().get(i));
+                    getComment(commentID);
+                }
             } else {
                 holder.layoutExpandComment.setVisibility(View.GONE);
                 holder.layoutNestComment.setVisibility(View.GONE);
