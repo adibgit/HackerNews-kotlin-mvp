@@ -14,7 +14,8 @@
             android:orientation="vertical"
             shimmer:shimmer_direction="bottom_to_top"
             shimmer:shimmer_repeat_delay="100"
-            shimmer:duration="2000">
+            shimmer:shimmer_auto_start="false"
+            >
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

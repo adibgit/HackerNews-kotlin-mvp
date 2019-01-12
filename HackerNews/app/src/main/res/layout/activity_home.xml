@@ -44,7 +44,8 @@
         android:layout_below="@id/layout_header"
         android:id="@+id/layout_recycler_type"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_30sdp">
+        android:layout_height="@dimen/_30sdp"
+        android:visibility="gone">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_type"
             android:layout_width="match_parent"
@@ -64,15 +65,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                shimmer:shimmer_direction="bottom_to_top"
-                shimmer:shimmer_repeat_delay="100"
-                shimmer:duration="2000">
+                shimmer:shimmer_repeat_delay="1000"
+                >
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <include layout="@layout/row_loading_story"/>
-                    <include layout="@layout/row_loading_story"/>
                     <include layout="@layout/row_loading_story"/>
                     <include layout="@layout/row_loading_story"/>
                     <include layout="@layout/row_loading_story"/>

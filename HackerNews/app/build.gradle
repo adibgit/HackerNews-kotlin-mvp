@@ -47,8 +47,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.1-alpha01'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1-alpha01'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
     // RETROFIT
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
@@ -70,7 +70,6 @@ dependencies {
 
     // GOOGLE
     implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
 
@@ -78,6 +77,7 @@ dependencies {
     implementation 'com.nshmura:snappysmoothscroller:1.0.0'
     implementation 'com.intuit.sdp:sdp-android:1.0.5'
     implementation 'com.facebook.shimmer:shimmer:0.3.0'
+    implementation 'com.github.lzyzsd.randomcolor:library:1.0.0'
 }
 
 repositories {

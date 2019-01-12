@@ -10,7 +10,8 @@
     android:layout_marginEnd="@dimen/_5sdp"
     android:layout_marginTop="@dimen/_5sdp"
     android:layout_marginBottom="@dimen/_5sdp"
-    android:elevation="@dimen/_2sdp">
+    android:elevation="@dimen/_2sdp"
+    android:animateLayoutChanges="true">
 
     <TextView
         android:id="@+id/text_time"
@@ -94,29 +95,28 @@
                 android:gravity="center"/>
         </LinearLayout>
     </LinearLayout>
-
-
     <LinearLayout
         android:id="@+id/layout_nest_comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
        <View
-           android:layout_width="@dimen/_1sdp"
+           android:visibility="visible"
+           android:id="@+id/line_comment"
+           android:layout_width="@dimen/_2sdp"
            android:layout_height="match_parent"
-           android:background="@color/blue_500"
-           android:layout_marginStart="@dimen/_5sdp"/>
-        <FrameLayout
+           android:background="@color/blue_300"
+           android:layout_marginStart="@dimen/_5sdp"
+          />
+        <androidx.recyclerview.widget.RecyclerView
+            android:visibility="visible"
+            android:id="@+id/recycler_child_comment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_child_comment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_5sdp"
-                android:animateLayoutChanges="false"/>
-        </FrameLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            />
     </LinearLayout>
 
 </LinearLayout>

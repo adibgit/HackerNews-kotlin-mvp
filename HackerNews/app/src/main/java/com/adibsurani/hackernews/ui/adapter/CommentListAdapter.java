@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.adibsurani.hackernews.R;
+import com.adibsurani.hackernews.controller.contract.HomeContract;
 import com.adibsurani.hackernews.helper.TimeAgoUtil;
 import com.adibsurani.hackernews.helper.view.RVHelper;
 import com.adibsurani.hackernews.networking.api.RestAPI;
@@ -26,14 +27,12 @@ import java.util.List;
 public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.ViewHolder> {
 
     private List<Comment> commentList;
-    private List<Comment> childComment;
     private Context context;
     private CommentListAdapter commentListAdapter;
 
     public CommentListAdapter(Context context) {
         this.context = context;
         commentList = new ArrayList<>();
-        childComment = new ArrayList<>();
     }
 
     @Override
@@ -57,11 +56,39 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
             if (comment.getKids().size() > 0) {
                 holder.textCommentCount.setText((Integer.toString(comment.getKids().size()) + " Comments"));
                 holder.recyclerViewComment.setVisibility(View.GONE);
-                setupAdapter(holder.recyclerViewComment);
-                for (int i = 0; i<comment.getKids().size(); i++) {
-                    String commentID = Integer.toString(comment.getKids().get(i));
-                    getComment(commentID);
-                }
+
+                holder.layoutExpandComment.setOnClickListener((v) -> {
+                    if (commentListAdapter != null) {
+                        Log.e("NEST COMMENT::", "adapter not null");
+                        if(commentListAdapter.getItemCount() > 0){
+                            Log.e("NEST COMMENT child::", commentListAdapter.getItemCount() + "");
+                            if (holder.recyclerViewComment.getVisibility() == View.GONE) {
+                                holder.recyclerViewComment.setVisibility(View.VISIBLE);
+                                holder.childCommentView.setVisibility(View.VISIBLE);
+                            } else {
+                                holder.recyclerViewComment.setVisibility(View.GONE);
+                                holder.childCommentView.setVisibility(View.GONE);
+                            }
+                        } else {
+                            holder.recyclerViewComment.setVisibility(View.VISIBLE);
+                            holder.childCommentView.setVisibility(View.VISIBLE);
+                            setupAdapter(holder.recyclerViewComment);
+                            for (int i = 0; i < comment.getKids().size(); i++) {
+                                String commentID = Integer.toString(comment.getKids().get(i));
+                                getComment(commentID);
+                            }
+                        }
+                    } else {
+                        Log.e("NEST COMMENT::", "adapter null");
+                        holder.recyclerViewComment.setVisibility(View.VISIBLE);
+                        holder.childCommentView.setVisibility(View.VISIBLE);
+                        setupAdapter(holder.recyclerViewComment);
+                        for (int i = 0; i < comment.getKids().size(); i++) {
+                            String commentID = Integer.toString(comment.getKids().get(i));
+                            getComment(commentID);
+                        }
+                    }
+                });
             } else {
                 holder.layoutExpandComment.setVisibility(View.GONE);
                 holder.layoutNestComment.setVisibility(View.GONE);
@@ -138,6 +165,7 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
         private TextView textTime, textComment, textAuthor, textCommentCount;
         private LinearLayout layoutExpandComment, layoutRoot, layoutNestComment;
         private RecyclerView recyclerViewComment;
+        private View childCommentView;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -149,6 +177,7 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
             layoutRoot = itemView.findViewById(R.id.layout_root);
             layoutNestComment = itemView.findViewById(R.id.layout_nest_comment);
             recyclerViewComment = itemView.findViewById(R.id.recycler_child_comment);
+            childCommentView = itemView.findViewById(R.id.line_comment);
         }
     }
 }
