@@ -5,13 +5,23 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/_5sdp"
+    android:layout_marginTop="@dimen/_5sdp"
+    android:layout_marginBottom="@dimen/_5sdp"
     android:elevation="@dimen/_1sdp"
-    android:background="@drawable/layout_rounded_grey">
-
+    android:background="@color/grey_800">
+    <ImageView
+        android:id="@+id/img_preview"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_120sdp"
+        android:scaleType="centerCrop"
+        android:visibility="gone"/>
+    <io.github.ponnamkarthik.richlinkpreview.RichLinkViewSkype
+        android:id="@+id/layout_preview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_20sdp"
+        android:layout_height="@dimen/_30sdp"
         android:orientation="horizontal"
         android:gravity="end">
         <ImageView
@@ -75,20 +85,21 @@
         android:fontFamily="monospace"
         android:textColor="@color/grey_400"
         android:textStyle="bold"/>
+
     <TextView
         android:id="@+id/text_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
         android:ellipsize="end"
-        android:maxLines="3"
+        android:fontFamily="@font/roboto_slab_bold"
+        android:maxLines="5"
         android:text="@string/story_title"
-        android:textSize="@dimen/_10sdp"
-        android:fontFamily="monospace"
-        android:textStyle="bold"
-        android:textColor="@color/colorAccent"/>
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/_14sdp"
+        android:textStyle="bold" />
     <TextView
         android:id="@+id/text_source"
         android:layout_width="match_parent"

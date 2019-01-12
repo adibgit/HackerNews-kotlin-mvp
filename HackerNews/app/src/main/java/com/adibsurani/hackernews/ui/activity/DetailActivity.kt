@@ -113,7 +113,7 @@ class DetailActivity :
                 clickCountComment = 1
                 loadHandler.postDelayed({
                     (viewPagerAdapter.getItem(0) as CommentFragment).setupCommentRequest(story.kids)
-                }, 500)
+                }, 300)
             }
         }
 

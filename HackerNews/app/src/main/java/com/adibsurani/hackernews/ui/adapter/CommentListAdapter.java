@@ -6,11 +6,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.adibsurani.hackernews.R;
-import com.adibsurani.hackernews.controller.contract.HomeContract;
 import com.adibsurani.hackernews.helper.TimeAgoUtil;
 import com.adibsurani.hackernews.helper.view.RVHelper;
 import com.adibsurani.hackernews.networking.api.RestAPI;
@@ -18,6 +18,7 @@ import com.adibsurani.hackernews.networking.data.Comment;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.github.lzyzsd.randomcolor.RandomColor;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -43,50 +44,43 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Comment comment = commentList.get(position);
+        RandomColor randomColor = new RandomColor();
+        int color = randomColor.randomColor();
         holder.textTime.setText(TimeAgoUtil.getTimeAgo(comment.getTime()));
         holder.textAuthor.setText(comment.getAuthor());
-
+        holder.childCommentView.setBackgroundColor(color);
         if (comment.getText() != null) {
             holder.textComment.setText(Html.fromHtml(comment.getText()));
         } else {
-            holder.layoutRoot.setVisibility(View.GONE);
+            ViewGroup.LayoutParams params = holder.layoutRoot.getLayoutParams();
+            params.height = 0;
+            holder.layoutRoot.setLayoutParams(params);
         }
-
         if (comment.getKids() != null) {
             if (comment.getKids().size() > 0) {
-                holder.textCommentCount.setText((Integer.toString(comment.getKids().size()) + " Comments"));
+                if (comment.getKids().size() == 1) {
+                    holder.textCommentCount.setText((Integer.toString(comment.getKids().size()) + " Comment"));
+                } else {
+                    holder.textCommentCount.setText((Integer.toString(comment.getKids().size()) + " Comments"));
+                }
                 holder.recyclerViewComment.setVisibility(View.GONE);
-
                 holder.layoutExpandComment.setOnClickListener((v) -> {
-                    if (commentListAdapter != null) {
-                        Log.e("NEST COMMENT::", "adapter not null");
-                        if(commentListAdapter.getItemCount() > 0){
-                            Log.e("NEST COMMENT child::", commentListAdapter.getItemCount() + "");
-                            if (holder.recyclerViewComment.getVisibility() == View.GONE) {
-                                holder.recyclerViewComment.setVisibility(View.VISIBLE);
-                                holder.childCommentView.setVisibility(View.VISIBLE);
-                            } else {
-                                holder.recyclerViewComment.setVisibility(View.GONE);
-                                holder.childCommentView.setVisibility(View.GONE);
-                            }
-                        } else {
-                            holder.recyclerViewComment.setVisibility(View.VISIBLE);
-                            holder.childCommentView.setVisibility(View.VISIBLE);
-                            setupAdapter(holder.recyclerViewComment);
-                            for (int i = 0; i < comment.getKids().size(); i++) {
-                                String commentID = Integer.toString(comment.getKids().get(i));
-                                getComment(commentID);
-                            }
-                        }
-                    } else {
-                        Log.e("NEST COMMENT::", "adapter null");
+                    if (holder.recyclerViewComment.getVisibility() == View.GONE) {
                         holder.recyclerViewComment.setVisibility(View.VISIBLE);
                         holder.childCommentView.setVisibility(View.VISIBLE);
+                        holder.imageExpand.setVisibility(View.GONE);
+                        holder.imageCollapse.setVisibility(View.VISIBLE);
                         setupAdapter(holder.recyclerViewComment);
                         for (int i = 0; i < comment.getKids().size(); i++) {
                             String commentID = Integer.toString(comment.getKids().get(i));
                             getComment(commentID);
                         }
+                    } else {
+                        holder.recyclerViewComment.setVisibility(View.GONE);
+                        holder.childCommentView.setVisibility(View.GONE);
+                        holder.imageExpand.setVisibility(View.VISIBLE);
+                        holder.imageCollapse.setVisibility(View.GONE);
+                        commentListAdapter.clearAdapter();
                     }
                 });
             } else {
@@ -166,6 +160,7 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
         private LinearLayout layoutExpandComment, layoutRoot, layoutNestComment;
         private RecyclerView recyclerViewComment;
         private View childCommentView;
+        private ImageView imageCollapse, imageExpand;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -178,6 +173,8 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
             layoutNestComment = itemView.findViewById(R.id.layout_nest_comment);
             recyclerViewComment = itemView.findViewById(R.id.recycler_child_comment);
             childCommentView = itemView.findViewById(R.id.line_comment);
+            imageCollapse = itemView.findViewById(R.id.image_collapse);
+            imageExpand = itemView.findViewById(R.id.image_expand);
         }
     }
 }

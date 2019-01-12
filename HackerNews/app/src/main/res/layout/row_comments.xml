@@ -5,14 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@drawable/layout_rounded_grey"
-    android:layout_marginStart="@dimen/_5sdp"
-    android:layout_marginEnd="@dimen/_5sdp"
-    android:layout_marginTop="@dimen/_5sdp"
-    android:layout_marginBottom="@dimen/_5sdp"
-    android:elevation="@dimen/_2sdp"
-    android:animateLayoutChanges="true">
-
+    android:background="@color/grey_800"
+    android:elevation="@dimen/_1sdp"
+    android:layout_marginBottom="@dimen/_5sdp">
     <TextView
         android:id="@+id/text_time"
         android:layout_width="match_parent"
@@ -25,7 +20,6 @@
         android:fontFamily="monospace"
         android:textColor="@color/grey_200"
         android:textStyle="bold"/>
-
     <TextView
         android:id="@+id/text_author"
         android:layout_width="match_parent"
@@ -51,7 +45,6 @@
         android:textColor="@color/colorAccent"
         android:textStyle="bold"
         />
-
     <LinearLayout
         android:id="@+id/layout_expand_comment"
         android:layout_width="match_parent"
@@ -80,7 +73,7 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_collapse"
                     android:layout_margin="@dimen/_5sdp"
-                    android:tint="@color/colorAccent"
+                    android:tint="@color/yellow_400"
                     android:visibility="gone"/>
             </FrameLayout>
             <TextView
@@ -108,6 +101,7 @@
            android:layout_height="match_parent"
            android:background="@color/blue_300"
            android:layout_marginStart="@dimen/_5sdp"
+           android:layout_marginTop="@dimen/_5sdp"
           />
         <androidx.recyclerview.widget.RecyclerView
             android:visibility="visible"
@@ -118,5 +112,4 @@
             android:layout_marginBottom="@dimen/_5sdp"
             />
     </LinearLayout>
-
 </LinearLayout>

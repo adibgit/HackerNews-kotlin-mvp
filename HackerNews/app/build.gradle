@@ -16,7 +16,6 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "BASE_URL", "\"https://hacker-news.firebaseio.com/v0/\""
     }
-
     dexOptions {
         jumboMode = true
     }
@@ -24,22 +23,25 @@ android {
     androidExtensions {
         experimental = true
     }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            minifyEnabled false
+        }
     }
-
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
         test.java.srcDirs += 'src/test/kotlin'
+    }
+    lintOptions {
+        abortOnError false
     }
 }
 
@@ -78,6 +80,12 @@ dependencies {
     implementation 'com.intuit.sdp:sdp-android:1.0.5'
     implementation 'com.facebook.shimmer:shimmer:0.3.0'
     implementation 'com.github.lzyzsd.randomcolor:library:1.0.0'
+    implementation 'io.github.ponnamkarthik:richlinkpreview:1.0.9'
+
+    implementation 'org.jsoup:jsoup:1.11.3'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 }
 
 repositories {

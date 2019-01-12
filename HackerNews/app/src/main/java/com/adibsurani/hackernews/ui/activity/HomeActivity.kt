@@ -107,12 +107,10 @@ class HomeActivity :
     private fun startShimmer() {
         recycler_story.visibility = GONE
         layout_shimmer_story.visibility = VISIBLE
-        layout_shimmer_story.startShimmer()
         image_refresh.bringToFront()
     }
 
     private fun stopShimmer() {
-        layout_shimmer_story.stopShimmer()
         layout_shimmer_story.visibility = GONE
         recycler_story.visibility = VISIBLE
     }
