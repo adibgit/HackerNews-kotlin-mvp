@@ -47,7 +47,9 @@ class HomeActivity :
         initTypeList()
     }
 
-    override fun showProgress(show: Boolean) {}
+    override fun showProgress(show: Boolean) {
+
+    }
 
     override fun showErrorMessage(error: String) {
         Log.e("HomePresenter E",error)

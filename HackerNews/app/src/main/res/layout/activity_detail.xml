@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:shimmer="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/layout_header"
@@ -10,7 +9,6 @@
         android:layout_height="@dimen/_40sdp"
         android:background="@color/colorPrimary"
         android:gravity="center">
-
         <TextView
             android:id="@+id/text_title"
             android:layout_width="match_parent"
@@ -32,8 +30,7 @@
             android:layout_alignParentEnd="true"
             android:layout_margin="@dimen/_8sdp"
             android:src="@drawable/ic_refresh"
-            android:tint="@color/colorAccent"/>
-
+            android:tint="@color/colorAccent" />
     </RelativeLayout>
 
 
@@ -46,14 +43,12 @@
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
         <FrameLayout
             android:id="@+id/layout_webview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:gravity="center">
-
             <ProgressBar
                 android:id="@+id/progressBar"
                 style="?android:attr/progressBarStyleHorizontal"
@@ -61,7 +56,6 @@
                 android:layout_height="2dp"
                 android:progress="50"
                 android:progressDrawable="@drawable/progress_bar" />
-
             <WebView
                 android:visibility="invisible"
                 android:id="@+id/webview_news"
@@ -69,7 +63,6 @@
                 android:layout_height="match_parent"
                 android:clickable="false"/>
         </FrameLayout>
-
     </FrameLayout>
 
 

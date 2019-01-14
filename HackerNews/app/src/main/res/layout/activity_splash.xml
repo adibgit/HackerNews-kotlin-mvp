@@ -7,8 +7,17 @@
     android:gravity="center">
     <ImageView
         android:id="@+id/img_icon"
-        android:layout_width="@dimen/_75sdp"
-        android:layout_height="@dimen/_75sdp"
-        android:src="@drawable/ic_app"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_80sdp"
+        android:src="@drawable/ic_glass"
         android:tint="@color/colorAccent"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/img_icon"
+        android:fontFamily="@font/anton"
+        android:text="READHACK"
+        android:textSize="@dimen/_20sdp"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"/>
 </RelativeLayout>
