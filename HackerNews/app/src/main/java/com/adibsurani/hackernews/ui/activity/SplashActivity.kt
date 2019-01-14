@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Handler
 import com.adibsurani.hackernews.R
 import com.adibsurani.hackernews.ui.base.BaseActivity
+import com.jaeger.library.StatusBarUtil
+import qiu.niorgai.StatusBarCompat
 
 class SplashActivity : BaseActivity() {
 
@@ -16,6 +18,8 @@ class SplashActivity : BaseActivity() {
     override fun initInject() {}
 
     override fun initCreate() {
+        StatusBarUtil.setDarkMode(this)
+        StatusBarCompat.setStatusBarColor(this, resources.getColor(R.color.colorPrimary))
         gotoHome()
     }
 

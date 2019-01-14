@@ -12,7 +12,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.adibsurani.hackernews.R;
 import com.adibsurani.hackernews.helper.TimeAgoUtil;
-import com.adibsurani.hackernews.helper.view.RVHelper;
+import com.adibsurani.hackernews.helper.RVHelper;
 import com.adibsurani.hackernews.networking.api.RestAPI;
 import com.adibsurani.hackernews.networking.data.Comment;
 import com.androidnetworking.AndroidNetworking;

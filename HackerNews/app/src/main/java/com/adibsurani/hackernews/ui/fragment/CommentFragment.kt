@@ -7,7 +7,7 @@ import com.adibsurani.hackernews.R
 import com.adibsurani.hackernews.controller.contract.CommentContract
 import com.adibsurani.hackernews.dagger.component.DaggerFragmentComponent
 import com.adibsurani.hackernews.dagger.module.FragmentModule
-import com.adibsurani.hackernews.helper.view.RVHelper
+import com.adibsurani.hackernews.helper.RVHelper
 import com.adibsurani.hackernews.networking.data.Comment
 import com.adibsurani.hackernews.ui.adapter.CommentListAdapter
 import com.adibsurani.hackernews.ui.base.BaseFragment

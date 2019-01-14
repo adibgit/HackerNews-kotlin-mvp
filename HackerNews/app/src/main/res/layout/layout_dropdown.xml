@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+    <!--HEADER-->
+    <RelativeLayout
+        android:id="@+id/layout_header_dropdown"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_45sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/image_dismiss"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:src="@drawable/ic_close"
+            android:layout_alignParentStart="true"
+            android:tint="@color/colorAccent"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_below="@id/img_icon"
+            android:fontFamily="@font/roboto_slab_bold"
+            android:text="ReadHack"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/_14sdp"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"/>
+    </RelativeLayout>
+</LinearLayout>

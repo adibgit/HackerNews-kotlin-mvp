@@ -7,7 +7,7 @@
     android:layout_marginTop="@dimen/_5sdp"
     android:layout_marginBottom="@dimen/_5sdp"
     android:elevation="@dimen/_1sdp"
-    android:background="@color/grey_800">
+    android:background="@color/grey_300">
 
     <View
         android:layout_width="match_parent"

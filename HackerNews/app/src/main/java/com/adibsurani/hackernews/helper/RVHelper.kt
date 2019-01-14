@@ -1,4 +1,4 @@
-package com.adibsurani.hackernews.helper.view
+package com.adibsurani.hackernews.helper
 
 import android.content.Context
 import androidx.core.view.ViewCompat

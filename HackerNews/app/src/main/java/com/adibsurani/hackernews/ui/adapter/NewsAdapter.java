@@ -35,6 +35,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     private List<Story> storyList;
     private Context context;
     private HomeActivity activity;
+    private String imageURL;
 
     public NewsAdapter(Context context, HomeActivity activity) {
         this.context = context;
@@ -56,26 +57,34 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         holder.textTime.setText(TimeAgoUtil.getTimeAgo(story.getTime()));
         String score = Integer.toString(story.getScore());
         holder.textScoreCount.setText(score);
-        if(story.getScore() > 200) {
-            holder.imageScore.setColorFilter(context.getResources().getColor(R.color.red_600));
+        if(story.getScore() > 100) {
+            holder.imageScore.setColorFilter(context.getResources().getColor(R.color.red_800));
         } else {
-            holder.imageScore.setColorFilter(context.getResources().getColor(R.color.grey_600));
+            holder.imageScore.setColorFilter(context.getResources().getColor(R.color.grey_800));
         }
         if (story.getKids() != null) {
             String kids = Integer.toString(story.getKids().size());
             holder.textCommentCount.setText(kids);
+            if(story.getKids().size() > 20) {
+                holder.imageComment.setColorFilter(context.getResources().getColor(R.color.red_800));
+            } else {
+                holder.imageComment.setColorFilter(context.getResources().getColor(R.color.grey_800));
+            }
         } else {
             holder.textCommentCount.setText("0");
         }
         if (story.getUrl() != null) {
             String URL = Util.Companion.getHostName(story.getUrl());
             holder.textSource.setText(URL);
-            RandomColor randomColor = new RandomColor();
-            int color = randomColor.randomColor();
-            holder.textSource.setTextColor(color);
         }
         holder.layoutRoot.setOnClickListener((v) -> {
-            activity.dataClicked(story);
+            if (imageURL != null) {
+                activity.dataClicked(story, imageURL);
+                Log.e("WEB IMAGE SENT:", imageURL);
+
+            } else {
+                activity.dataClicked(story, "no image");
+            }
         });
         holder.imageBookmark.setOnClickListener((v) -> {
 
@@ -96,6 +105,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
                                             .load(metaData.getImageurl())
                                             .into(holder.imagePreview);
                                     holder.imagePreview.setVisibility(View.VISIBLE);
+                                    imageURL = metaData.getImageurl();
+                                    Log.e("WEB IMAGE GET:", imageURL);
+                                } else {
+                                    imageURL = "No Image";
                                 }
                             }
                         }
@@ -136,7 +149,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView textTitle, textTime, textSource, textScoreCount, textCommentCount;
-        private ImageView imageBookmark, imageScore, imagePreview;
+        private ImageView imageBookmark, imageScore, imagePreview, imageComment;
         private LinearLayout layoutRoot;
         private RichLinkViewSkype layoutPreview;
 
@@ -150,6 +163,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             imageBookmark = itemView.findViewById(R.id.img_bookmark);
             imageScore = itemView.findViewById(R.id.img_score);
             imagePreview = itemView.findViewById(R.id.img_preview);
+            imageComment = itemView.findViewById(R.id.img_comment);
             layoutRoot = itemView.findViewById(R.id.layout_root);
             layoutPreview = itemView.findViewById(R.id.layout_preview);
         }

@@ -6,6 +6,8 @@
     <color name="colorPurpleLight">#9575CD</color>
     <color name="colorShimmer">#757575</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorPaper">#F1F0EE</color>
+    <color name="colorPine">#2B2A26</color>
 
     <color name="red_100">#FFCDD2</color>
     <color name="red_50">#FFEBEE</color>

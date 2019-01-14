@@ -15,9 +15,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/img_icon"
-        android:fontFamily="@font/anton"
-        android:text="READHACK"
-        android:textSize="@dimen/_20sdp"
+        android:fontFamily="@font/roboto_slab_bold"
+        android:text="ReadHack"
+        android:textSize="@dimen/_10sdp"
         android:textAlignment="center"
         android:textColor="@color/colorAccent"/>
 </RelativeLayout>

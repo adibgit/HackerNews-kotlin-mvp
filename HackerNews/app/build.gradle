@@ -81,6 +81,11 @@ dependencies {
     implementation 'com.facebook.shimmer:shimmer:0.3.0'
     implementation 'com.github.lzyzsd.randomcolor:library:1.0.0'
     implementation 'io.github.ponnamkarthik:richlinkpreview:1.0.9'
+    implementation 'com.jaeger.statusbarutil:library:1.5.1'
+    implementation ('com.github.niorgai:StatusBarCompat:2.3.0', {
+        exclude group: 'androidx.appcompat:appcompat'
+        exclude group: 'com.google.android.material:material'
+    })
 
     implementation 'org.jsoup:jsoup:1.11.3'
     implementation 'com.squareup.picasso:picasso:2.71828'
