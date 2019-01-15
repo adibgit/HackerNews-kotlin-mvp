@@ -84,7 +84,7 @@ public class LocalDB extends Activity {
                 .commit();
     }
 
-    //NEW
+    // NEW
     public void setNewStory(ArrayList<Story> newStories) {
         Gson gson = new Gson();
         String story = gson.toJson(newStories);

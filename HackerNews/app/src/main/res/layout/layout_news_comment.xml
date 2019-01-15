@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/layout_root_comment"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/_15sdp"
+    android:layout_marginBottom="@dimen/_40sdp"
+    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
+    android:background="@color/grey_700">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/layout_shimmer_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            shimmer:shimmer_direction="bottom_to_top"
+            shimmer:shimmer_repeat_delay="100"
+            shimmer:shimmer_auto_start="false"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <include layout="@layout/row_loading_story"/>
+                <include layout="@layout/row_loading_story"/>
+                <include layout="@layout/row_loading_story"/>
+                <include layout="@layout/row_loading_story"/>
+                <include layout="@layout/row_loading_story"/>
+                <include layout="@layout/row_loading_story"/>
+                <include layout="@layout/row_loading_story"/>
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_comment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                />
+        </LinearLayout>
+    </FrameLayout>
+</RelativeLayout>

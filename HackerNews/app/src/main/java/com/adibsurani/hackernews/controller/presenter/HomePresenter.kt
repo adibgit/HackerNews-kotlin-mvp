@@ -2,6 +2,7 @@ package com.adibsurani.hackernews.controller.presenter
 
 import com.adibsurani.hackernews.controller.contract.HomeContract
 import com.adibsurani.hackernews.networking.api.ApiServiceInterface
+import com.adibsurani.hackernews.networking.data.Comment
 import com.adibsurani.hackernews.networking.data.Story
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -43,6 +44,19 @@ class HomePresenter: HomeContract.Presenter {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ story: Story ->
                 view.getStorySuccess(story)
+            }, { error ->
+                view.showErrorMessage(error.localizedMessage)
+            })
+        subscriptions.add(subscribe)
+    }
+
+    override fun getComment(commentID: Int) {
+        var subscribe = api
+            .getComment(commentID)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ comment: Comment ->
+                view.getCommentSuccess(comment)
             }, { error ->
                 view.showErrorMessage(error.localizedMessage)
             })

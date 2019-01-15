@@ -35,7 +35,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     private List<Story> storyList;
     private Context context;
     private HomeActivity activity;
-    private String imageURL;
 
     public NewsAdapter(Context context, HomeActivity activity) {
         this.context = context;
@@ -58,7 +57,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         String score = Integer.toString(story.getScore());
         holder.textScoreCount.setText(score);
         if(story.getScore() > 100) {
-            holder.imageScore.setColorFilter(context.getResources().getColor(R.color.red_800));
+            holder.imageScore.setColorFilter(context.getResources().getColor(R.color.red_600));
         } else {
             holder.imageScore.setColorFilter(context.getResources().getColor(R.color.grey_800));
         }
@@ -66,7 +65,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             String kids = Integer.toString(story.getKids().size());
             holder.textCommentCount.setText(kids);
             if(story.getKids().size() > 20) {
-                holder.imageComment.setColorFilter(context.getResources().getColor(R.color.red_800));
+                holder.imageComment.setColorFilter(context.getResources().getColor(R.color.red_600));
             } else {
                 holder.imageComment.setColorFilter(context.getResources().getColor(R.color.grey_800));
             }
@@ -78,13 +77,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             holder.textSource.setText(URL);
         }
         holder.layoutRoot.setOnClickListener((v) -> {
-            if (imageURL != null) {
-                activity.dataClicked(story, imageURL);
-                Log.e("WEB IMAGE SENT:", imageURL);
-
-            } else {
-                activity.dataClicked(story, "no image");
-            }
+            activity.dataClicked(story);
         });
         holder.imageBookmark.setOnClickListener((v) -> {
 
@@ -93,7 +86,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             if (URLUtil.isValidUrl(story.getUrl())) {
                 if (!story.getUrl().contains(".pdf")) {
                     RichPreview richPreview;
-                    final MetaData data;
                     richPreview = new RichPreview(new ResponseListener() {
                         @Override
                         public void onData(MetaData metaData) {
@@ -105,10 +97,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
                                             .load(metaData.getImageurl())
                                             .into(holder.imagePreview);
                                     holder.imagePreview.setVisibility(View.VISIBLE);
-                                    imageURL = metaData.getImageurl();
-                                    Log.e("WEB IMAGE GET:", imageURL);
-                                } else {
-                                    imageURL = "No Image";
                                 }
                             }
                         }

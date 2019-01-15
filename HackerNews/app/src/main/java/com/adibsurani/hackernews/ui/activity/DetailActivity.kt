@@ -5,6 +5,7 @@ import android.os.Handler
 import android.util.Log
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.adibsurani.hackernews.R
@@ -16,9 +17,6 @@ import com.adibsurani.hackernews.ui.base.BaseActivity
 import com.adibsurani.hackernews.ui.fragment.CommentFragment
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_detail.*
-import android.webkit.WebChromeClient
-
-
 
 
 class DetailActivity :

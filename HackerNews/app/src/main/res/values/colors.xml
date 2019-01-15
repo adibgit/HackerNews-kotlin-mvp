@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#1F2D20</color>
-    <color name="colorPrimaryDark">#1F2D20</color>
+    <color name="colorPrimary">#2B2A26</color>
+    <color name="colorPrimaryDark">#2B2A26</color>
     <color name="colorAccent">#FFFFFF</color>
     <color name="colorPurpleLight">#9575CD</color>
     <color name="colorShimmer">#757575</color>
