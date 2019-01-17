@@ -13,6 +13,7 @@ import com.adibsurani.hackernews.controller.contract.HomeContract
 import com.adibsurani.hackernews.dagger.component.DaggerActivityComponent
 import com.adibsurani.hackernews.dagger.module.ActivityModule
 import com.adibsurani.hackernews.helper.AnimationUtil
+import com.adibsurani.hackernews.helper.Constants
 import com.adibsurani.hackernews.helper.Constants.Companion.COMMENT
 import com.adibsurani.hackernews.helper.Constants.Companion.NEWS
 import com.adibsurani.hackernews.helper.RVHelper
@@ -47,6 +48,7 @@ class HomeActivity :
     private var kidsList =  ArrayList<Int>()
     private var commentList = ArrayList<Comment>()
     private var clickCountComment: Int = 0
+    private var currentCategory: String = Constants.TOP
 
 
     override fun initLayout(): Int {
@@ -62,11 +64,14 @@ class HomeActivity :
     }
 
     override fun initCreate() {
-        StatusBarCompat.setStatusBarColor(this, resources.getColor(R.color.colorAccent))
-        StatusBarUtil.setLightMode(this)
+        StatusBarCompat.setStatusBarColor(this, resources.getColor(R.color.colorPrimary))
+        StatusBarUtil.setDarkMode(this)
+        image_dropdown.bringToFront()
+        text_category.bringToFront()
         initView()
         initClick()
         initRecycler()
+        initSwipe()
     }
 
     override fun showProgress(show: Boolean) {
@@ -79,7 +84,6 @@ class HomeActivity :
             showBottom(false)
         } else if (layout_header.visibility == GONE && layout_web.visibility == GONE){
             animateCommentToNews()
-
         } else {
             super.onBackPressed()
 
@@ -116,28 +120,11 @@ class HomeActivity :
     }
 
     private fun initClick() {
-        image_refresh.setOnClickListener {
-            storyList.clear()
-            newsAdapter.clearAdapter()
-            homePresenter.getStoriesID()
-            startShimmer()
-        }
         image_dropdown.setOnClickListener {
-            StatusBarCompat.setStatusBarColor(this, resources.getColor(R.color.colorPrimary))
-            StatusBarUtil.setDarkMode(this)
-            layout_menu.visibility = VISIBLE
-            layout_menu.bringToFront()
-            layout_menu.startAnimation(AnimationUtil.inFromTopAnimation())
-            layout_story.visibility = GONE
+            showMenu(true)
         }
         image_dismiss.setOnClickListener {
-            StatusBarCompat.setStatusBarColor(this, resources.getColor(R.color.colorAccent))
-            StatusBarUtil.setLightMode(this)
-            layout_story.visibility = VISIBLE
-            layout_menu.startAnimation(AnimationUtil.outToTopAnimation())
-            loadHandler.postDelayed({
-                layout_menu.visibility = GONE
-            }, 150)
+            showMenu(false)
         }
         layout_tab_news.setOnClickListener {
             image_news.setColorFilter(resources.getColor(R.color.orange_500))
@@ -153,6 +140,38 @@ class HomeActivity :
                 setupCommentRequest(currentStory.kids)
             }
         }
+        text_menu_top.setOnClickListener {
+            currentCategory = Constants.TOP
+            showMenu(false)
+            storyList.clear()
+            newsAdapter.clearAdapter()
+            homePresenter.getStoriesID()
+            startShimmer()
+        }
+        text_menu_best.setOnClickListener {
+            currentCategory = Constants.BEST
+            showMenu(false)
+            storyList.clear()
+            newsAdapter.clearAdapter()
+            homePresenter.getStoriesID()
+            startShimmer()
+        }
+        text_menu_new.setOnClickListener {
+            currentCategory = Constants.NEW
+            showMenu(false)
+            storyList.clear()
+            newsAdapter.clearAdapter()
+            homePresenter.getStoriesID()
+            startShimmer()
+        }
+        text_menu_bookmark.setOnClickListener {
+            currentCategory = Constants.BOOKMARK
+            showMenu(false)
+            storyList.clear()
+            newsAdapter.clearAdapter()
+            homePresenter.getStoriesID()
+            startShimmer()
+        }
     }
 
     private fun initRecycler() {
@@ -164,10 +183,31 @@ class HomeActivity :
         recycler_comment.adapter = commentListAdapter
     }
 
+    private fun initSwipe() {
+        storyList.clear()
+        newsAdapter.clearAdapter()
+        homePresenter.getStoriesID()
+        startShimmer()
+
+        when (currentCategory) {
+            Constants.TOP -> {
+
+            }
+            Constants.BEST -> {
+
+            }
+            Constants.NEW -> {
+
+            }
+            Constants.BOOKMARK -> {
+
+            }
+        }
+    }
+
     private fun startShimmer() {
         recycler_story.visibility = GONE
         layout_shimmer_story.visibility = VISIBLE
-        image_refresh.bringToFront()
     }
 
     private fun stopShimmer() {
@@ -200,7 +240,7 @@ class HomeActivity :
         progressBar.visibility = VISIBLE
         progressBar.bringToFront()
         webview_news.settings.javaScriptEnabled = true
-        webview_news.settings.supportZoom()
+        webview_news.settings.supportZoom().and(true)
         webview_news.settings.builtInZoomControls = true
         webview_news.settings.displayZoomControls = false
         webview_news.clearSslPreferences()
@@ -280,13 +320,13 @@ class HomeActivity :
         loadHandler.postDelayed({
             layout_story.visibility = GONE
             layout_header.visibility = GONE
-        }, 150)
+        }, 300)
         showBottom(true)
     }
 
     private fun animateNewsToHome() {
-        StatusBarCompat.setStatusBarColor(this, resources.getColor(R.color.colorAccent))
-        StatusBarUtil.setLightMode(this)
+        StatusBarCompat.setStatusBarColor(this, resources.getColor(R.color.colorPrimary))
+        StatusBarUtil.setDarkMode(this)
         layout_story.visibility = VISIBLE
         layout_header.visibility = VISIBLE
         layout_story.startAnimation(AnimationUtil.inFromLeftAnimation())
@@ -295,7 +335,11 @@ class HomeActivity :
         loadHandler.postDelayed({
             webview_news.loadUrl("about:blank")
             layout_web.visibility = GONE
-        }, 150)
+            commentListAdapter.clearAdapter()
+            commentList.clear()
+            clickCountComment = 0
+            setupLoadComment()
+        }, 300)
     }
 
     private fun animateCommentToNews() {
@@ -306,7 +350,7 @@ class HomeActivity :
         layout_comment.startAnimation(AnimationUtil.outToRightAnimation())
         loadHandler.postDelayed({
             layout_comment.visibility = GONE
-        }, 150)
+        }, 300)
     }
 
     private fun animateNewsToComment() {
@@ -317,7 +361,7 @@ class HomeActivity :
         layout_web.startAnimation(AnimationUtil.outToLeftAnimation())
         loadHandler.postDelayed({
             layout_web.visibility = GONE
-        }, 150)
+        }, 300)
     }
 
     private fun showBottom(status: Boolean) {
@@ -326,6 +370,25 @@ class HomeActivity :
             layout_bottom.startAnimation(AnimationUtil.inFromBottomAnimation())
         } else {
             layout_bottom.visibility = GONE
+        }
+    }
+
+    private fun showMenu(status: Boolean) {
+        if (status) {
+            StatusBarCompat.setStatusBarColor(this, resources.getColor(R.color.orange_500))
+            StatusBarUtil.setDarkMode(this)
+            layout_menu.visibility = VISIBLE
+            layout_menu.bringToFront()
+            layout_menu.startAnimation(AnimationUtil.inFromTopAnimation())
+            layout_story.visibility = GONE
+        } else {
+            StatusBarCompat.setStatusBarColor(this, resources.getColor(R.color.colorPrimary))
+            StatusBarUtil.setDarkMode(this)
+            layout_story.visibility = VISIBLE
+            layout_menu.startAnimation(AnimationUtil.outToTopAnimation())
+            loadHandler.postDelayed({
+                layout_menu.visibility = GONE
+            }, 300)
         }
     }
 }

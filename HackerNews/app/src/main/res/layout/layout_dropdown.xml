@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    android:background="@color/orange_500">
     <!--HEADER-->
     <RelativeLayout
         android:id="@+id/layout_header_dropdown"
@@ -35,4 +35,56 @@
             android:textAlignment="center"
             android:textColor="@color/colorAccent"/>
     </RelativeLayout>
+    <TextView
+        android:id="@+id/text_menu_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:layout_below="@id/img_icon"
+        android:fontFamily="@font/anton"
+        android:text="TOP"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/_24sdp"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"/>
+    <TextView
+        android:id="@+id/text_menu_best"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:layout_below="@id/img_icon"
+        android:fontFamily="@font/anton"
+        android:text="BEST"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/_24sdp"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"/>
+    <TextView
+        android:id="@+id/text_menu_new"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:layout_below="@id/img_icon"
+        android:fontFamily="@font/anton"
+        android:text="NEW"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/_24sdp"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"/>
+    <TextView
+        android:id="@+id/text_menu_bookmark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:layout_below="@id/img_icon"
+        android:fontFamily="@font/anton"
+        android:text="BOOKMARKS"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/_24sdp"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"/>
 </LinearLayout>

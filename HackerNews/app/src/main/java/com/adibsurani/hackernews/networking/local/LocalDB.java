@@ -113,8 +113,51 @@ public class LocalDB extends Activity {
                 .commit();
     }
 
+    // BOOKMARK
+    public void setBookmark(ArrayList<Story> bookmarks) {
+        Gson gson = new Gson();
+        String story = gson.toJson(bookmarks);
+        editor
+                .putString(Constants.BOOKMARK, story)
+                .commit();
+    }
 
+    public void addBookmark(Story bookmark) {
+        List<Story> storyList;
+        if (sharedPref.contains(Constants.BOOKMARK)) {
+            String story = sharedPref.getString(Constants.BOOKMARK, null);
+            Gson gson = new Gson();
+            Story[] bookmarks = gson.fromJson(story, Story[].class);
+            storyList = Arrays.asList(bookmarks);
+            storyList = new ArrayList<>(storyList);
+            storyList.add(0,bookmark);
+        } else {
+            storyList = new ArrayList<>();
+            storyList.add(bookmark);
+        }
+        Gson gson = new Gson();
+        String jsonItem = gson.toJson(storyList);
+        editor.putString(Constants.BOOKMARK, jsonItem);
+        editor.commit();
+    }
 
+    public List<Story> getBookmark() {
+        List<Story> storyList;
+        if (sharedPref.contains(Constants.NEW)) {
+            String topStory = sharedPref.getString(Constants.NEW, null);
+            Gson gson = new Gson();
+            Story[] stories = gson.fromJson(topStory, Story[].class);
+            storyList = Arrays.asList(stories);
+            storyList = new ArrayList<>(storyList);
+        } else {
+            return null;
+        }
+        return storyList;
+    }
 
-
+    public void clearBookMark() {
+        editor
+                .putString(Constants.BOOKMARK, null)
+                .commit();
+    }
 }

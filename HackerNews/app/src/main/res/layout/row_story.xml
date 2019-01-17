@@ -11,7 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPaper"
+        android:background="@color/colorPrimary"
         android:layout_marginTop="@dimen/_1sdp"
         android:layout_marginStart="@dimen/_1sdp"
         android:layout_marginEnd="@dimen/_1sdp">
@@ -33,14 +33,14 @@
         android:gravity="end"
         android:layout_marginStart="@dimen/_1sdp"
         android:layout_marginEnd="@dimen/_1sdp"
-        android:background="@color/colorPaper">
+        android:background="@color/colorPrimary">
         <ImageView
             android:id="@+id/img_bookmark"
             android:layout_width="@dimen/_15sdp"
             android:layout_height="match_parent"
             android:src="@drawable/ic_bookmark_blank"
             android:layout_marginStart="@dimen/_10sdp"
-            android:tint="@color/grey_700"
+            android:tint="@color/grey_600"
             />
         <ImageView
             android:layout_toStartOf="@id/text_point"
@@ -59,7 +59,7 @@
             android:layout_marginEnd="@dimen/_5sdp"
             android:text="@string/story_comment_count"
             android:gravity="center"
-            android:textColor="@color/grey_800"
+            android:textColor="@color/grey_400"
             android:textStyle="bold"
             android:textSize="@dimen/_10sdp"/>
         <ImageView
@@ -81,7 +81,7 @@
             android:layout_marginEnd="@dimen/_10sdp"
             android:text="@string/story_comment_count"
             android:gravity="center"
-            android:textColor="@color/grey_900"
+            android:textColor="@color/grey_400"
             android:textStyle="bold"
             android:textSize="@dimen/_10sdp"/>
     </RelativeLayout>
@@ -93,7 +93,7 @@
         android:layout_marginStart="@dimen/_1sdp"
         android:layout_marginEnd="@dimen/_1sdp"
         android:layout_marginBottom="@dimen/_1sdp"
-        android:background="@color/colorPaper">
+        android:background="@color/colorPrimary">
     <TextView
         android:id="@+id/text_time"
         android:layout_width="match_parent"
@@ -104,7 +104,7 @@
         android:text="@string/story_time"
         android:textSize="@dimen/_7sdp"
         android:fontFamily="monospace"
-        android:textColor="@color/grey_800"
+        android:textColor="@color/grey_400"
         android:textStyle="bold"/>
     <TextView
         android:id="@+id/text_title"
@@ -117,7 +117,7 @@
         android:fontFamily="@font/roboto_slab_bold"
         android:maxLines="5"
         android:text="@string/story_title"
-        android:textColor="@color/grey_700"
+        android:textColor="@color/colorPaper"
         android:textSize="@dimen/_16sdp"
         android:textStyle="bold" />
     <TextView
@@ -132,7 +132,7 @@
         android:textSize="@dimen/_10sdp"
         android:fontFamily="@font/roboto_mono_bold"
         android:textAllCaps="true"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/grey_400"
         android:textStyle="bold"/>
     </LinearLayout>
 </LinearLayout>

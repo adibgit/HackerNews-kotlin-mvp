@@ -2,13 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     xmlns:shimmer="http://schemas.android.com/apk/res-auto">
     <!--HEADER-->
     <RelativeLayout
         android:id="@+id/layout_header"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_45sdp"
-        android:background="@color/colorAccent"
+        android:background="@color/colorPrimary"
         android:layout_marginTop="@dimen/_20sdp"
         android:gravity="center">
         <ImageView
@@ -21,28 +22,30 @@
             android:layout_marginEnd="@dimen/_5sdp"
             android:src="@drawable/ic_dropdown"
             android:layout_alignParentStart="true"
-            android:tint="@color/colorPrimary"/>
+            android:tint="@color/colorPaper"/>
         <ImageView
             android:id="@+id/image_logo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toEndOf="@id/image_dropdown"
-            android:layout_toStartOf="@id/image_refresh"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_5sdp"
             android:src="@drawable/ic_glass"
-            android:tint="@color/colorPrimary"/>
-        <ImageView
-            android:id="@+id/image_refresh"
-            android:layout_width="@dimen/_16sdp"
+            android:tint="@color/colorPaper"/>
+        <TextView
+            android:id="@+id/text_category"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginBottom="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_15sdp"
-            android:src="@drawable/ic_search"
+            android:text="TOP"
+            android:gravity="center"
+            android:textStyle="bold"
             android:layout_alignParentEnd="true"
-            android:tint="@color/colorPrimary"/>
+            android:fontFamily="monospace"
+            android:textSize="@dimen/_15sdp"
+            android:textColor="@color/colorPaper"/>
     </RelativeLayout>
 
     <!--LAYOUT STORY-->
@@ -51,34 +54,45 @@
         android:id="@+id/layout_story"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorAccent">
-        <FrameLayout
+        android:background="@color/colorPrimary">
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/layout_swipe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/layout_shimmer_story"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                shimmer:shimmer_repeat_delay="1000"
-                >
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <include layout="@layout/row_loading_story"/>
-                    <include layout="@layout/row_loading_story"/>
-                    <include layout="@layout/row_loading_story"/>
-                    <include layout="@layout/row_loading_story"/>
-                    <include layout="@layout/row_loading_story"/>
-                </LinearLayout>
-            </com.facebook.shimmer.ShimmerFrameLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_story"
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </FrameLayout>
+                android:layout_height="wrap_content">
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/layout_shimmer_story"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        shimmer:shimmer_repeat_delay="1000"
+                        shimmer:shimmer_highlight_color="@color/grey_700"
+                        shimmer:shimmer_base_color="@color/colorPrimary"
+                        >
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <include layout="@layout/row_loading_story"/>
+                            <include layout="@layout/row_loading_story"/>
+                            <include layout="@layout/row_loading_story"/>
+                            <include layout="@layout/row_loading_story"/>
+                            <include layout="@layout/row_loading_story"/>
+                        </LinearLayout>
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_story"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </FrameLayout>
+            </androidx.core.widget.NestedScrollView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </RelativeLayout>
 
     <!--LAYOUT MENU-->

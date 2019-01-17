@@ -11,5 +11,6 @@ class Constants {
         const val TOP       : String = "TOP"
         const val BEST      : String = "BEST"
         const val NEW       : String = "NEW"
+        const val BOOKMARK  : String = "BOOKMARK"
     }
 }

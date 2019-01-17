@@ -28,6 +28,12 @@ interface ApiServiceInterface {
     @GET("topstories.json?print=pretty")
     fun getTopStoriesID() : Observable<ArrayList<Int>>
 
+    @GET("beststories.json?print=pretty")
+    fun getBestStoriesID() : Observable<ArrayList<Int>>
+
+    @GET("newstories.json?print=pretty")
+    fun getNewStoriesID() : Observable<ArrayList<Int>>
+
     @GET("item/{storyID}.json?print=pretty")
     fun getStory(@Path("storyID") storyID : Int) : Observable<Story>
 
