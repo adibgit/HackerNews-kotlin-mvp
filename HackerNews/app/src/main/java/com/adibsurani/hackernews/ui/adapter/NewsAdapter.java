@@ -196,7 +196,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
                 holder.imageBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_fill));
                 holder.imageBookmark.setColorFilter(context.getResources().getColor(R.color.orange_500), PorterDuff.Mode.SRC_ATOP);
             }
-
         });
     }
 
