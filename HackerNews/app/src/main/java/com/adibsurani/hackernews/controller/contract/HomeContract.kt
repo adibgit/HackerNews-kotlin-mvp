@@ -9,22 +9,15 @@ class HomeContract {
     interface View: BaseContract.View {
         fun showProgress(show: Boolean)
         fun showErrorMessage(error: String)
-
-        // stories
         fun getStoriesIDSuccess(storiesID: ArrayList<Int>)
         fun getStorySuccess(story: Story)
-
-        // comment
         fun getCommentSuccess(comment: Comment)
 
     }
 
     interface Presenter: BaseContract.Presenter<View> {
-        // stories
-        fun getStoriesID()
+        fun getStoriesID(category: String)
         fun getStory(storyID: Int)
-
-        //comment
         fun getComment(commentID: Int)
     }
 

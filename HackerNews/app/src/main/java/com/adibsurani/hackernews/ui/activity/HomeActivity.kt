@@ -82,7 +82,7 @@ class HomeActivity :
         if (layout_header.visibility == GONE && layout_comment.visibility == GONE) {
             animateNewsToHome()
             showBottom(false)
-        } else if (layout_header.visibility == GONE && layout_web.visibility == GONE){
+        } else if (layout_header.visibility == GONE && layout_web.visibility == GONE) {
             animateCommentToNews()
         } else {
             super.onBackPressed()
@@ -111,11 +111,12 @@ class HomeActivity :
         if (storyList.size == 25) {
             newsAdapter.setDataSource(storyList)
             stopShimmer()
+            layout_swipe.isRefreshing = false
         }
     }
 
     private fun initView() {
-        homePresenter.getStoriesID()
+        homePresenter.getStoriesID(Constants.TOP)
         startShimmer()
     }
 
@@ -142,35 +143,42 @@ class HomeActivity :
         }
         text_menu_top.setOnClickListener {
             currentCategory = Constants.TOP
+            text_category.text = "TOP"
             showMenu(false)
             storyList.clear()
             newsAdapter.clearAdapter()
-            homePresenter.getStoriesID()
+            homePresenter.getStoriesID(Constants.TOP)
             startShimmer()
         }
         text_menu_best.setOnClickListener {
             currentCategory = Constants.BEST
+            text_category.text = "BEST"
             showMenu(false)
             storyList.clear()
             newsAdapter.clearAdapter()
-            homePresenter.getStoriesID()
+            homePresenter.getStoriesID(Constants.BEST)
             startShimmer()
         }
         text_menu_new.setOnClickListener {
             currentCategory = Constants.NEW
+            text_category.text = "NEW"
             showMenu(false)
             storyList.clear()
             newsAdapter.clearAdapter()
-            homePresenter.getStoriesID()
+            homePresenter.getStoriesID(Constants.NEW)
             startShimmer()
         }
         text_menu_bookmark.setOnClickListener {
             currentCategory = Constants.BOOKMARK
+            text_category.text = ""
             showMenu(false)
             storyList.clear()
             newsAdapter.clearAdapter()
-            homePresenter.getStoriesID()
-            startShimmer()
+            localDB.bookmark?.let {
+                newsAdapter.setDataSource(localDB.bookmark)
+            }
+            stopShimmer()
+
         }
     }
 
@@ -184,24 +192,11 @@ class HomeActivity :
     }
 
     private fun initSwipe() {
-        storyList.clear()
-        newsAdapter.clearAdapter()
-        homePresenter.getStoriesID()
-        startShimmer()
-
-        when (currentCategory) {
-            Constants.TOP -> {
-
-            }
-            Constants.BEST -> {
-
-            }
-            Constants.NEW -> {
-
-            }
-            Constants.BOOKMARK -> {
-
-            }
+        layout_swipe.setOnRefreshListener {
+            storyList.clear()
+            newsAdapter.clearAdapter()
+            homePresenter.getStoriesID(currentCategory)
+            startShimmer()
         }
     }
 
@@ -320,7 +315,7 @@ class HomeActivity :
         loadHandler.postDelayed({
             layout_story.visibility = GONE
             layout_header.visibility = GONE
-        }, 300)
+        }, 200)
         showBottom(true)
     }
 
@@ -339,7 +334,9 @@ class HomeActivity :
             commentList.clear()
             clickCountComment = 0
             setupLoadComment()
-        }, 300)
+        }, 200)
+        image_news.setColorFilter(resources.getColor(R.color.orange_500))
+        image_comment.setColorFilter(resources.getColor(R.color.colorPaper))
     }
 
     private fun animateCommentToNews() {
@@ -350,7 +347,9 @@ class HomeActivity :
         layout_comment.startAnimation(AnimationUtil.outToRightAnimation())
         loadHandler.postDelayed({
             layout_comment.visibility = GONE
-        }, 300)
+        }, 200)
+        image_news.setColorFilter(resources.getColor(R.color.orange_500))
+        image_comment.setColorFilter(resources.getColor(R.color.colorPaper))
     }
 
     private fun animateNewsToComment() {
@@ -361,7 +360,7 @@ class HomeActivity :
         layout_web.startAnimation(AnimationUtil.outToLeftAnimation())
         loadHandler.postDelayed({
             layout_web.visibility = GONE
-        }, 300)
+        }, 200)
     }
 
     private fun showBottom(status: Boolean) {
@@ -388,7 +387,7 @@ class HomeActivity :
             layout_menu.startAnimation(AnimationUtil.outToTopAnimation())
             loadHandler.postDelayed({
                 layout_menu.visibility = GONE
-            }, 300)
+            }, 200)
         }
     }
 }

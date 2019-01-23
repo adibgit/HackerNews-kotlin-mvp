@@ -8,9 +8,9 @@ class Constants {
         const val COMMENT   : Int = 1
 
         const val PREF_NAME : String = "HACKER NEWS"
-        const val TOP       : String = "TOP"
-        const val BEST      : String = "BEST"
-        const val NEW       : String = "NEW"
+        const val TOP       : String = "topstories"
+        const val BEST      : String = "beststories"
+        const val NEW       : String = "newstories"
         const val BOOKMARK  : String = "BOOKMARK"
     }
 }

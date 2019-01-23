@@ -24,9 +24,9 @@ class HomePresenter: HomeContract.Presenter {
         this.view = view
     }
 
-    override fun getStoriesID() {
+    override fun getStoriesID(category: String) {
         var subscribe = api
-            .getTopStoriesID()
+            .getStoriesID(category)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ storiesID: ArrayList<Int> ->

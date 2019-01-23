@@ -12,7 +12,7 @@ public class AnimationUtil {
                 Animation.RELATIVE_TO_PARENT, 0.0f,
                 Animation.RELATIVE_TO_PARENT, 0.0f,
                 Animation.RELATIVE_TO_PARENT, 0.0f);
-        inFromRight.setDuration(300);
+        inFromRight.setDuration(200);
         inFromRight.setInterpolator(new AccelerateInterpolator());
         return inFromRight;
     }
@@ -23,7 +23,7 @@ public class AnimationUtil {
                 Animation.RELATIVE_TO_PARENT, -1.0f,
                 Animation.RELATIVE_TO_PARENT, 0.0f,
                 Animation.RELATIVE_TO_PARENT, 0.0f);
-        outtoLeft.setDuration(300);
+        outtoLeft.setDuration(200);
         outtoLeft.setInterpolator(new AccelerateInterpolator());
         return outtoLeft;
     }
@@ -34,7 +34,7 @@ public class AnimationUtil {
                 Animation.RELATIVE_TO_PARENT, 0.0f,
                 Animation.RELATIVE_TO_PARENT, 0.0f,
                 Animation.RELATIVE_TO_PARENT, 0.0f);
-        inFromLeft.setDuration(300);
+        inFromLeft.setDuration(200);
         inFromLeft.setInterpolator(new AccelerateInterpolator());
         return inFromLeft;
     }
@@ -45,7 +45,7 @@ public class AnimationUtil {
                 Animation.RELATIVE_TO_PARENT, +1.0f,
                 Animation.RELATIVE_TO_PARENT, 0.0f,
                 Animation.RELATIVE_TO_PARENT, 0.0f);
-        outtoRight.setDuration(300);
+        outtoRight.setDuration(200);
         outtoRight.setInterpolator(new AccelerateInterpolator());
         return outtoRight;
     }
@@ -56,7 +56,7 @@ public class AnimationUtil {
                 Animation.RELATIVE_TO_PARENT, 0.0f,
                 Animation.RELATIVE_TO_PARENT, +1.0f,
                 Animation.RELATIVE_TO_PARENT, 0.0f);
-        inFromBottom.setDuration(300);
+        inFromBottom.setDuration(200);
         inFromBottom.setInterpolator(new AccelerateInterpolator());
         return inFromBottom;
     }
@@ -67,7 +67,7 @@ public class AnimationUtil {
                 Animation.RELATIVE_TO_PARENT, 0.0f,
                 Animation.RELATIVE_TO_PARENT, 0.0f,
                 Animation.RELATIVE_TO_PARENT, +1.0f);
-        outToTop.setDuration(300);
+        outToTop.setDuration(200);
         outToTop.setInterpolator(new AccelerateInterpolator());
         return outToTop;
     }
@@ -79,7 +79,7 @@ public class AnimationUtil {
                 Animation.RELATIVE_TO_PARENT, 0.0f,
                 Animation.RELATIVE_TO_PARENT, -1.0f,
                 Animation.RELATIVE_TO_PARENT, 0.0f);
-        inFromTop.setDuration(300);
+        inFromTop.setDuration(200);
         inFromTop.setInterpolator(new AccelerateInterpolator());
         return inFromTop;
     }
@@ -90,7 +90,7 @@ public class AnimationUtil {
                 Animation.RELATIVE_TO_PARENT, 0.0f,
                 Animation.RELATIVE_TO_PARENT, 0.0f,
                 Animation.RELATIVE_TO_PARENT, -1.0f);
-        outToBottom.setDuration(300);
+        outToBottom.setDuration(200);
         outToBottom.setInterpolator(new AccelerateInterpolator());
         return outToBottom;
     }

@@ -1,4 +1,4 @@
-package com.adibsurani.hackernews.networking.local;
+package com.adibsurani.hackernews.local;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -143,8 +143,8 @@ public class LocalDB extends Activity {
 
     public List<Story> getBookmark() {
         List<Story> storyList;
-        if (sharedPref.contains(Constants.NEW)) {
-            String topStory = sharedPref.getString(Constants.NEW, null);
+        if (sharedPref.contains(Constants.BOOKMARK)) {
+            String topStory = sharedPref.getString(Constants.BOOKMARK, null);
             Gson gson = new Gson();
             Story[] stories = gson.fromJson(topStory, Story[].class);
             storyList = Arrays.asList(stories);

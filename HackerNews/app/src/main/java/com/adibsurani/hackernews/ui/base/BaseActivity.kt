@@ -2,7 +2,7 @@ package com.adibsurani.hackernews.ui.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.adibsurani.hackernews.networking.local.LocalDB
+import com.adibsurani.hackernews.local.LocalDB
 
 abstract class BaseActivity: AppCompatActivity() {
 
